@@ -17,7 +17,7 @@ AppPage {
             showItem: showItemAlways
             color: "white"
             onClicked: {
-                thisPage.navigationStack.popAllExceptFirstAndPush(addTripPage)
+                thisPage.navigationStack.popAllExceptFirstAndPush(tripDetailsPage, {state: "addNew", trip: null})
             }
         }
     }
@@ -25,8 +25,8 @@ AppPage {
     JsonListModel {
         id: myTrips
         source: thisPage.myTrips
-        keyField: "id"
-        fields: ["id", "title", "start", "end"]
+        keyField: "tripId"
+        fields: ["tripId", "title", "start", "end"]
     }
 
     AppListView {
@@ -35,14 +35,24 @@ AppPage {
         model: myTrips
         spacing: 10
         delegate: TripOverview {
+            id: tripDelegate
             width: parent.width
             height: childrenRect.height
+            onClicked: {
+                var trip = {
+                    tripId: tripDelegate.tripId,
+                    title: tripDelegate.title,
+                    start: tripDelegate.start,
+                    end: tripDelegate.end
+                }
+                thisPage.navigationStack.popAllExceptFirstAndPush(tripDetailsPage, {state: "editExisting", trip: trip})
+            }
         }
     }
 
 
     Component {
-        id: addTripPage
+        id: tripDetailsPage
         AddTripPage {
             dispatcher: thisPage.dispatcher
         }

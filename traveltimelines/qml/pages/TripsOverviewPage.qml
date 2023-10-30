@@ -19,8 +19,10 @@ AppPage {
         id: tripsView
         anchors.fill: parent
         model: myTrips
-        delegate: SimpleRow {
-            text: model.title + " Start: " + model.start
+        spacing: 10
+        delegate: TripOverview {
+            width: parent.width
+            height: childrenRect.height
         }
     }
 }

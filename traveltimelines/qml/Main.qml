@@ -31,6 +31,7 @@ App {
 
         TripsOverviewPage {
             myTrips: dataModel.trips
+            dispatcher: controller
         }
 
     }

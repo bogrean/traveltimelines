@@ -4,7 +4,7 @@ Item {
     id: tripsController
 
     signal createTrip(var newTrip)
-    signal deleteTrip(int id)
+    signal deleteTrip(int tripId)
     signal editTrip(var existingTrip)
 
 

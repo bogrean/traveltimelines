@@ -36,7 +36,7 @@ AppPage {
         spacing: 10
         delegate: TripOverview {
             id: tripDelegate
-            width: parent.width
+            width: tripsView.width
             height: childrenRect.height
             onClicked: {
                 var trip = {
@@ -46,6 +46,9 @@ AppPage {
                     end: tripDelegate.end
                 }
                 thisPage.navigationStack.popAllExceptFirstAndPush(tripDetailsPage, {state: "editExisting", trip: trip})
+            }
+            onDeleteRequested: {
+                dispatcher.deleteTrip(tripId)
             }
         }
     }

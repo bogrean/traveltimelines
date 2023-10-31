@@ -9,6 +9,7 @@ Rectangle {
     required property date end
 
     signal clicked()
+    signal deleteRequested()
 
     color: "light blue"
     MouseArea {
@@ -18,6 +19,7 @@ Rectangle {
         }
     }
     Column {
+        id: details
         padding: 5
         AppText {
             text: title
@@ -28,6 +30,15 @@ Rectangle {
         }
         AppText {
             text: qsTr("Ends on: %1").arg(end)
+        }
+    }
+    AppButton {
+        anchors.top: details.bottom
+        anchors.right: overview.right
+        radius: 30
+        iconType: IconType.remove
+        onClicked: {
+            overview.deleteRequested()
         }
     }
 }

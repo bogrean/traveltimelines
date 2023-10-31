@@ -15,19 +15,12 @@ Item {
             _data.trips.push(newTrip)
             tripsChanged()
         }
-        onDeleteTrip: id => {
-            console.log("DeletingTrip: " + id)
+        onDeleteTrip: tripId => {
+                _data.removeTrip(tripId)
+                tripsChanged()
         }
         onEditTrip: existingTrip => {
-            var existingIndex = -1
-            const getIndex = (trip, index) => {
-                            if (trip.tripId === existingTrip.tripId) {
-                                existingIndex = index
-                                return true
-                            }
-                            return false
-                        }
-            _data.trips.some(getIndex)
+            var existingIndex = _data.getIndex(existingTrip.tripId)
             if (existingIndex >= 0) {
                 _data.trips[existingIndex].title = existingTrip.title
                 _data.trips[existingIndex].start = existingTrip.start
@@ -41,5 +34,24 @@ Item {
     Item {
         id: _data
         property var trips: []
+
+        function getIndex(tripId) {
+            var existingIndex = -1
+            const findIndex = (trip, index) => {
+                            if (trip && trip.tripId === tripId) {
+                                existingIndex = index
+                                return true
+                            }
+                            return false
+                        }
+            _data.trips.some(findIndex)
+            return existingIndex
+        }
+
+        function removeTrip(tripId) {
+            const filterPredicate = (trip) => {
+                          return !trip || trip.tripId !== tripId}
+            _data.trips = _data.trips.filter(filterPredicate)
+        }
     }
 }

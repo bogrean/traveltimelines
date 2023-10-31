@@ -36,14 +36,35 @@ Item {
 
         tripEventsChanged()
     }
+    function sortTrips() {
+        const comparator = (a, b) => {
+            if (a.start < b.start) {
+                return -1
+            }
+            if (a.start > b.start) {
+                return 1
+            }
+            if (a.end < b.end) {
+                return -1
+            }
+            if (a.end > b.end) {
+                return 1
+            }
+            return 0
+        }
+        trips.sort(comparator)
+    }
 
     Connections {
         id: tripsControllerConnections
+
+
 
         onCreateTrip: newTrip => {
             newTrip.tripId = _data.nextId
             _data.nextId++
             _data.trips.push(newTrip)
+            sortTrips()
             tripsChanged()
         }
         onDeleteTrip: tripId => {
@@ -58,6 +79,7 @@ Item {
                 _data.trips[existingIndex].title = existingTrip.title
                 _data.trips[existingIndex].start = existingTrip.start
                 _data.trips[existingIndex].end = existingTrip.end
+                sortTrips()
                 tripsChanged()
                 updateSelectedTripEvents(existingTrip.tripId)
             }
@@ -71,12 +93,27 @@ Item {
         id: eventsControllerConnections
 
         onCreateEvent: newEvent => {
-            console.log("New event: ", newEvent.type, " from ", newEvent.startLocation, " to ", newEvent.endLocation, " on ", newEvent.startDate)
             newEvent.eventId = _data.nextEventId
             _data.nextEventId++
             _data.events.push(newEvent)
             if (newEvent.tripId === selectedTripId) {
                 updateSelectedTripEvents(selectedTripId)
+            }
+            // update trip start and end date
+            var tripIndex = _data.getIndex(newEvent.tripId, _data.trips)
+            if (tripIndex >= 0) {
+                if (newEvent.startDate < trips[tripIndex].start) {
+                    trips[tripIndex].start.setFullYear(newEvent.startDate.getFullYear())
+                    trips[tripIndex].start.setMonth(newEvent.startDate.getMonth())
+                    trips[tripIndex].start.setDate(newEvent.startDate.getDate())
+                }
+                if (newEvent.endDate > trips[tripIndex].end) {
+                    trips[tripIndex].end.setFullYear(newEvent.endDate.getFullYear())
+                    trips[tripIndex].end.setMonth(newEvent.endDate.getMonth())
+                    trips[tripIndex].end.setDate(newEvent.endDate.getDate())
+                }
+                sortTrips()
+                tripsChanged()
             }
         }
 

@@ -7,7 +7,10 @@ import "../logic"
 AppPage {
     id: thisPage
     required property TripsController dispatcher
+    property Component tripEventsPage
     property var trip: null
+
+    signal showEventsRequested()
 
     states: [
         State {
@@ -16,6 +19,10 @@ AppPage {
                 target: saveTripBtn
                 text: qsTr("Create trip")
                 enabled: tripTitle.text.length
+            }
+            PropertyChanges {
+                target: addEventsBtn
+                visible: false
             }
             PropertyChanges {
                 target: tripTitle
@@ -40,6 +47,10 @@ AppPage {
                 target: saveTripBtn
                 text: qsTr("Save trip")
                 enabled: trip && (trip.title !== tripTitle.text || trip.start !== startDate.selectedDate || trip.end !== endDate.selectedDate)
+            }
+            PropertyChanges {
+                target: addEventsBtn
+                visible: true
             }
             PropertyChanges {
                 target: tripTitle
@@ -99,7 +110,10 @@ AppPage {
                     id: addEventsBtn
                     text: qsTr("Add events")
                     Layout.alignment: Qt.AlignCenter
-                    enabled: false
+                    onClicked: {
+                        dispatcher.fetchTripData(thisPage.trip ? thisPage.trip.tripId : -1)
+                        thisPage.navigationStack.push(tripEventsPage, {selectedTripName: thisPage.trip ? thisPage.trip.title : ""})
+                    }
                 }
                 AppButton {
                     id: saveTripBtn

@@ -6,6 +6,7 @@ Item {
     signal createTrip(var newTrip)
     signal deleteTrip(int tripId)
     signal editTrip(var existingTrip)
+    signal fetchTripData(int tripId)
 
 
     function _createTrip(title, startDate, endDate) {

@@ -86,13 +86,28 @@ App {
         dispatcher: controller
         eventsDispatcher: eventsController
     }
-
+    Component {
+        id: eventsOverviewPage
+        EventsOverviewPage {
+            id: eventsOverviewPageContents
+            tripEvents: dataModel.tripEvents
+            selectedTripId: dataModel.selectedTripId
+            dispatcher: eventsController
+        }
+    }
+    Component {
+        id: tripDetailsPage
+        AddTripPage {
+            dispatcher: controller
+            tripEventsPage: eventsOverviewPage
+        }
+    }
     NavigationStack {
 
         TripsOverviewPage {
             myTrips: dataModel.trips
             dispatcher: controller
+            tripDetailsPage: tripDetailsPage
         }
-
     }
 }

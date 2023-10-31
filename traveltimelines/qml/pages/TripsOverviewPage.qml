@@ -8,6 +8,7 @@ AppPage {
 
     required property var myTrips
     required property TripsController dispatcher
+    required property Component tripDetailsPage
 
     title: qsTr("My Trips")
 
@@ -50,14 +51,6 @@ AppPage {
             onDeleteRequested: {
                 dispatcher.deleteTrip(tripId)
             }
-        }
-    }
-
-
-    Component {
-        id: tripDetailsPage
-        AddTripPage {
-            dispatcher: thisPage.dispatcher
         }
     }
 }

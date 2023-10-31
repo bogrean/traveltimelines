@@ -8,8 +8,16 @@ Item {
     readonly property alias trips: _data.trips
 
     property alias eventsDispatcher: eventsControllerConnections.target
-    readonly property var tripEvents: []
+    property var tripEvents: []
     property int selectedTripId: -1
+
+    function updateSelectedTripEvents(tripId) {
+        selectedTripId = tripId
+        const filterPredicate = (event) => {
+                      return event && event.tripId === selectedTripId}
+        tripEvents = _data.events.filter(filterPredicate)
+        tripEventsChanged()
+    }
 
     Connections {
         id: tripsControllerConnections
@@ -31,7 +39,11 @@ Item {
                 _data.trips[existingIndex].start = existingTrip.start
                 _data.trips[existingIndex].end = existingTrip.end
                 tripsChanged()
+                updateSelectedTripEvents(existingTrip.tripId)
             }
+        }
+        onFetchTripData: tripId => {
+            updateSelectedTripEvents(tripId)
         }
     }
 
@@ -44,9 +56,7 @@ Item {
             _data.nextEventId++
             _data.events.push(newEvent)
             if (newEvent.tripId === selectedTripId) {
-               const filterPredicate = (event) => {
-                             return event && event.tripId === selectedTripId}
-               tripEvents = _data.events.filter(filterPredicate)
+                updateSelectedTripEvents(selectedTripId)
             }
         }
 

@@ -14,6 +14,17 @@ Rectangle {
     required property string comments
     property string currency: "RON"
     color: "light green"
+
+    signal clicked()
+    signal deleteRequested()
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            eventCard.clicked()
+        }
+    }
+
     Column {
         id: details
         AppText {

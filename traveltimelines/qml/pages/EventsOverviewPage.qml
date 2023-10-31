@@ -9,6 +9,7 @@ AppPage {
     property int selectedTripId: -1
     property string selectedTripName
     required property EventsController dispatcher
+    required property Component editEventPage
 
     title: qsTr("Trip events: %1").arg(selectedTripName)
 
@@ -18,7 +19,7 @@ AppPage {
             showItem: showItemAlways
             color: "white"
             onClicked: {
-                // TODO: push the add event page
+                thisPage.navigationStack.push(editEventPage, {state: "addNew", tripEvent: null})
             }
         }
     }

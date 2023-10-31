@@ -37,7 +37,7 @@ App {
                                       "OTP",
                                       "reserved",
                                       50,
-                                      "payed",
+                                      "paid",
                                       "FANY",
                                       "")
         eventsController._createEvent("plane",
@@ -48,7 +48,7 @@ App {
                                       "RIG",
                                       "reserved",
                                       500,
-                                      "payed",
+                                      "paid",
                                       "AirBaltic",
                                       "")
         eventsController._createEvent("bus",
@@ -59,7 +59,7 @@ App {
                                       "Talinn",
                                       "reserved",
                                       150,
-                                      "payed",
+                                      "paid",
                                       "BusLine",
                                       "")
         eventsController._createEvent("accommodation",
@@ -87,12 +87,21 @@ App {
         eventsDispatcher: eventsController
     }
     Component {
+        id: eventDetailsPage
+        EditEventPage {
+            dispatcher: eventsController
+            tripId: dataModel.selectedTripId
+
+        }
+    }
+    Component {
         id: eventsOverviewPage
         EventsOverviewPage {
             id: eventsOverviewPageContents
             tripEvents: dataModel.tripEvents
             selectedTripId: dataModel.selectedTripId
             dispatcher: eventsController
+            editEventPage: eventDetailsPage
         }
     }
     Component {

@@ -78,13 +78,17 @@ AppPage {
                 placeholderText: qsTr("Enter your trip name")
 
             }
-            DatePicker {
+            DateField {
                 id: startDate
-                datePickerMode: startDate.dateMode
+                width: parent.width
+                allowEditing: true
+                labelText: qsTr("Start date: ")
             }
-            DatePicker {
+            DateField {
                 id: endDate
-                datePickerMode: endDate.dateMode
+                width: parent.width
+                allowEditing: true
+                labelText: qsTr("End date: ")
             }
 
             RowLayout{

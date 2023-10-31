@@ -20,16 +20,18 @@ Rectangle {
     }
     Column {
         id: details
-        padding: 5
         AppText {
+            padding: 5
             text: title
             font.bold: true
         }
-        AppText {
-            text: qsTr("Starts on: %1").arg(start)
+        DateField {
+            selectedDate: start
+            labelText: qsTr("Starts on: ")
         }
-        AppText {
-            text: qsTr("Ends on: %1").arg(end)
+        DateField {
+            selectedDate: end
+            labelText: qsTr("Ends on: ")
         }
     }
     AppButton {

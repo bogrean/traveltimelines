@@ -11,7 +11,8 @@ Item {
         id: tripsControllerConnections
 
         onCreateTrip: newTrip => {
-            newTrip.tripId = _data.trips.length + 1
+            newTrip.tripId = _data.nextId
+            _data.nextId++
             _data.trips.push(newTrip)
             tripsChanged()
         }
@@ -33,6 +34,7 @@ Item {
 
     Item {
         id: _data
+        property int nextId: 1
         property var trips: []
 
         function getIndex(tripId) {

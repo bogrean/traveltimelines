@@ -7,6 +7,10 @@ Item {
     property alias dispatcher: tripsControllerConnections.target
     readonly property alias trips: _data.trips
 
+    property alias eventsDispatcher: eventsControllerConnections.target
+    readonly property var tripEvents: []
+    property int selectedTripId: -1
+
     Connections {
         id: tripsControllerConnections
 
@@ -31,11 +35,32 @@ Item {
         }
     }
 
+    Connections {
+        id: eventsControllerConnections
+
+        onCreateEvent: newEvent => {
+            console.log("New event: ", newEvent.type, " from ", newEvent.startLocation, " to ", newEvent.endLocation, " on ", newEvent.startDate)
+            newEvent.eventId = _data.nextEventId
+            _data.nextEventId++
+            _data.events.push(newEvent)
+            if (newEvent.tripId === selectedTripId) {
+               const filterPredicate = (event) => {
+                             return event && event.tripId === selectedTripId}
+               tripEvents = _data.events.filter(filterPredicate)
+            }
+        }
+
+        onDeleteEvent: eventId => {}
+        onEditEvent: existingEvent => {}
+    }
+
 
     Item {
         id: _data
         property int nextId: 1
         property var trips: []
+        property var events: []
+        property int nextEventId: 1
 
         function getIndex(tripId) {
             var existingIndex = -1

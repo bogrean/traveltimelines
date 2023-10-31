@@ -30,6 +30,8 @@ Item {
         }
         onDeleteTrip: tripId => {
                 _data.removeTrip(tripId)
+                _data.removeTripEvents(tripId)
+                updateSelectedTripEvents(selectedTripId)
                 tripsChanged()
         }
         onEditTrip: existingTrip => {
@@ -112,6 +114,12 @@ Item {
         function removeEvent(eventId) {
             const filterPredicate = (event) => {
                           return !event || event.eventId !== eventId}
+            _data.events = _data.events.filter(filterPredicate)
+        }
+
+        function removeTripEvents(tripId) {
+            const filterPredicate = (event) => {
+                          return !event || event.tripId !== tripId}
             _data.events = _data.events.filter(filterPredicate)
         }
     }

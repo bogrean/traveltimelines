@@ -34,10 +34,9 @@ Rectangle {
             labelText: qsTr("Ends on: ")
         }
     }
-    AppButton {
+    IconButton {
         anchors.top: details.bottom
         anchors.right: overview.right
-        radius: 30
         iconType: IconType.remove
         onClicked: {
             overview.deleteRequested()

@@ -3,6 +3,7 @@ import Felgo
 
 Rectangle {
     id: eventCard
+    required property int eventId
     required property string type
     required property date startDate
     required property date endDate
@@ -68,6 +69,14 @@ Rectangle {
         AppText {
             padding: 10
             text: qsTr("Comments: %1").arg(comments)
+        }
+    }
+    IconButton {
+        anchors.top: details.bottom
+        anchors.right: eventCard.right
+        iconType: IconType.remove
+        onClicked: {
+            eventCard.deleteRequested()
         }
     }
 }

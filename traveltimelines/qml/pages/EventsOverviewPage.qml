@@ -44,6 +44,9 @@ AppPage {
                 var existingEvent = thisPage.tripEvents[index]
                 thisPage.navigationStack.push(editEventPage, {state: "editExisting", tripEvent: existingEvent})
             }
+            onDeleteRequested: {
+                dispatcher.deleteEvent(eventId)
+            }
         }
     }
 }

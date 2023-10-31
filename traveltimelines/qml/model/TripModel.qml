@@ -60,7 +60,10 @@ Item {
             }
         }
 
-        onDeleteEvent: eventId => {}
+        onDeleteEvent: eventId => {
+            _data.removeEvent(eventId)
+            updateSelectedTripEvents(selectedTripId)
+        }
         onEditEvent: existingEvent => {
             var existingIndex = _data.getIndex(existingEvent.eventId, _data.events)
             if (existingIndex >= 0) {
@@ -104,6 +107,12 @@ Item {
             const filterPredicate = (trip) => {
                           return !trip || trip.tripId !== tripId}
             _data.trips = _data.trips.filter(filterPredicate)
+        }
+
+        function removeEvent(eventId) {
+            const filterPredicate = (event) => {
+                          return !event || event.eventId !== eventId}
+            _data.events = _data.events.filter(filterPredicate)
         }
     }
 }

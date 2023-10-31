@@ -33,7 +33,7 @@ Item {
                 tripsChanged()
         }
         onEditTrip: existingTrip => {
-            var existingIndex = _data.getIndex(existingTrip.tripId)
+            var existingIndex = _data.getIndex(existingTrip.tripId, _data.trips)
             if (existingIndex >= 0) {
                 _data.trips[existingIndex].title = existingTrip.title
                 _data.trips[existingIndex].start = existingTrip.start
@@ -61,7 +61,22 @@ Item {
         }
 
         onDeleteEvent: eventId => {}
-        onEditEvent: existingEvent => {}
+        onEditEvent: existingEvent => {
+            var existingIndex = _data.getIndex(existingEvent.eventId, _data.events)
+            if (existingIndex >= 0) {
+                _data.events[existingIndex].type = existingEvent.type
+                _data.events[existingIndex].startDate = existingEvent.startDate
+                _data.events[existingIndex].endDate = existingEvent.endDate
+                _data.events[existingIndex].startLocation = existingEvent.startLocation
+                _data.events[existingIndex].endLocation = existingEvent.endLocation
+                _data.events[existingIndex].status = existingEvent.status
+                _data.events[existingIndex].cost = existingEvent.cost
+                _data.events[existingIndex].costStatus = existingEvent.costStatus
+                _data.events[existingIndex].operator = existingEvent.operator
+                _data.events[existingIndex].comments = existingEvent.comments
+                updateSelectedTripEvents(selectedTripId)
+            }
+        }
     }
 
 
@@ -72,7 +87,7 @@ Item {
         property var events: []
         property int nextEventId: 1
 
-        function getIndex(tripId) {
+        function getIndex(tripId, arr) {
             var existingIndex = -1
             const findIndex = (trip, index) => {
                             if (trip && trip.tripId === tripId) {
@@ -81,7 +96,7 @@ Item {
                             }
                             return false
                         }
-            _data.trips.some(findIndex)
+            arr.some(findIndex)
             return existingIndex
         }
 

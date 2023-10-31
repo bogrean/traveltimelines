@@ -40,6 +40,10 @@ AppPage {
             id: eventDelegate
             width: eventsView.width
             height: childrenRect.height
+            onClicked: {
+                var existingEvent = thisPage.tripEvents[index]
+                thisPage.navigationStack.push(editEventPage, {state: "editExisting", tripEvent: existingEvent})
+            }
         }
     }
 }

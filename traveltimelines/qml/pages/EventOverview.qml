@@ -12,6 +12,7 @@ Rectangle {
     required property int cost
     required property string costStatus
     required property string comments
+    required property int index
     property string currency: "RON"
     color: "light green"
 

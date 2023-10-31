@@ -40,17 +40,6 @@ App {
                                       "paid",
                                       "FANY",
                                       "")
-        eventsController._createEvent("plane",
-                                      1,
-                                      new Date(2015, 5, 28, 4, 30),
-                                      new Date(2015, 5, 28, 6, 30),
-                                      "OTP",
-                                      "RIG",
-                                      "reserved",
-                                      500,
-                                      "paid",
-                                      "AirBaltic",
-                                      "")
         eventsController._createEvent("bus",
                                       1,
                                       new Date(2015, 5, 28, 10, 30),
@@ -72,6 +61,17 @@ App {
                                       150,
                                       "estimated",
                                       "booking.com",
+                                      "")
+        eventsController._createEvent("plane",
+                                      1,
+                                      new Date(2015, 5, 28, 4, 30),
+                                      new Date(2015, 5, 28, 6, 30),
+                                      "OTP",
+                                      "RIG",
+                                      "reserved",
+                                      500,
+                                      "paid",
+                                      "AirBaltic",
                                       "")
     }
 

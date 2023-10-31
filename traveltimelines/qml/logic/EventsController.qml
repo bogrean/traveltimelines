@@ -6,6 +6,7 @@ Item {
     signal createEvent(var newEvent)
     signal deleteEvent(int eventId)
     signal editEvent(var existingEvent)
+    signal reloadEvents()
 
 
     function _createEvent(type, tripId, startDate, endDate, startLocation, endLocation, status, cost, costStatus, operator, comments) {

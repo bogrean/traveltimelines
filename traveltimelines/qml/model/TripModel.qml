@@ -54,23 +54,49 @@ Item {
         }
         trips.sort(comparator)
     }
+    function saveTrips() {
+        storage.setValue("trips", _data.trips)
+        storage.setValue("nextTripIndex", _data.nextId)
+    }
+    function saveEvents() {
+        storage.setValue("events", _data.events)
+        storage.setValue("nextEventIndex", _data.nextEventId)
+    }
+    function updateTripAfterEventChange(event) {
+        var tripIndex = _data.getIndex(event.tripId, _data.trips)
+        if (tripIndex >= 0) {
+            if (event.startDate < trips[tripIndex].start) {
+                trips[tripIndex].start.setFullYear(event.startDate.getFullYear())
+                trips[tripIndex].start.setMonth(event.startDate.getMonth())
+                trips[tripIndex].start.setDate(event.startDate.getDate())
+            }
+            if (event.endDate > trips[tripIndex].end) {
+                trips[tripIndex].end.setFullYear(event.endDate.getFullYear())
+                trips[tripIndex].end.setMonth(event.endDate.getMonth())
+                trips[tripIndex].end.setDate(event.endDate.getDate())
+            }
+            sortTrips()
+            saveTrips()
+            tripsChanged()
+        }
+    }
 
     Connections {
         id: tripsControllerConnections
-
-
 
         onCreateTrip: newTrip => {
             newTrip.tripId = _data.nextId
             _data.nextId++
             _data.trips.push(newTrip)
             sortTrips()
+            saveTrips()
             tripsChanged()
         }
         onDeleteTrip: tripId => {
                 _data.removeTrip(tripId)
                 _data.removeTripEvents(tripId)
                 updateSelectedTripEvents(selectedTripId)
+                saveTrips()
                 tripsChanged()
         }
         onEditTrip: existingTrip => {
@@ -80,6 +106,7 @@ Item {
                 _data.trips[existingIndex].start = existingTrip.start
                 _data.trips[existingIndex].end = existingTrip.end
                 sortTrips()
+                saveTrips()
                 tripsChanged()
                 updateSelectedTripEvents(existingTrip.tripId)
             }
@@ -87,10 +114,22 @@ Item {
         onFetchTripData: tripId => {
             updateSelectedTripEvents(tripId)
         }
+        onReloadTrips: {
+            var storedTrips = storage.getValue("trips")
+            var nextTripIndex = storage.getValue("nextTripIndex")
+            if (storedTrips) {
+                _data.trips = storedTrips
+            }
+            _data.nextId = nextTripIndex ? nextTripIndex : _data.trips.length
+            sortTrips()
+            tripsChanged()
+        }
     }
 
     Connections {
         id: eventsControllerConnections
+
+
 
         onCreateEvent: newEvent => {
             newEvent.eventId = _data.nextEventId
@@ -99,27 +138,14 @@ Item {
             if (newEvent.tripId === selectedTripId) {
                 updateSelectedTripEvents(selectedTripId)
             }
-            // update trip start and end date
-            var tripIndex = _data.getIndex(newEvent.tripId, _data.trips)
-            if (tripIndex >= 0) {
-                if (newEvent.startDate < trips[tripIndex].start) {
-                    trips[tripIndex].start.setFullYear(newEvent.startDate.getFullYear())
-                    trips[tripIndex].start.setMonth(newEvent.startDate.getMonth())
-                    trips[tripIndex].start.setDate(newEvent.startDate.getDate())
-                }
-                if (newEvent.endDate > trips[tripIndex].end) {
-                    trips[tripIndex].end.setFullYear(newEvent.endDate.getFullYear())
-                    trips[tripIndex].end.setMonth(newEvent.endDate.getMonth())
-                    trips[tripIndex].end.setDate(newEvent.endDate.getDate())
-                }
-                sortTrips()
-                tripsChanged()
-            }
+            updateTripAfterEventChange(newEvent)
+            saveEvents()
         }
 
         onDeleteEvent: eventId => {
             _data.removeEvent(eventId)
             updateSelectedTripEvents(selectedTripId)
+            saveEvents()
         }
         onEditEvent: existingEvent => {
             var existingIndex = _data.getIndex(existingEvent.eventId, _data.events)
@@ -135,8 +161,24 @@ Item {
                 _data.events[existingIndex].operator = existingEvent.operator
                 _data.events[existingIndex].comments = existingEvent.comments
                 updateSelectedTripEvents(selectedTripId)
+                updateTripAfterEventChange(existingEvent)
+                saveEvents()
             }
         }
+        onReloadEvents: {
+            var storedEvents = storage.getValue("events")
+            var nextEventIndex = storage.getValue("nextEventIndex")
+            if (storedEvents) {
+                _data.events = storedEvents
+            }
+            _data.nextEventId = nextEventIndex ? nextEventIndex : _data.events.length
+            updateSelectedTripEvents(selectedTripId)
+        }
+    }
+
+    Storage {
+        id: storage
+        databaseName: "traveltimelines"
     }
 
 

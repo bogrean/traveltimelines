@@ -33,63 +33,63 @@ Rectangle {
         DateField {
             selectedDate: startDate
             label: qsTr("Departing on: ")
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         TextFieldRow {
             label: qsTr("Departing at:")
             enabled: false
             value: startDate.toTimeString()
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         TextFieldRow {
             label: qsTr("Departing from:")
             enabled: false
             value: startLocation
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         DateField {
             selectedDate: endDate
             label: qsTr("Ariving on: ")
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         TextFieldRow {
             label: qsTr("Arriving at")
             enabled: false
             value: endDate.toTimeString()
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         TextFieldRow {
             label: qsTr("Arriving in:")
             enabled: false
             value: endLocation
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         TextFieldRow {
             label: qsTr("Operator:")
             enabled: false
             value: operator
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         TextFieldRow {
             label: qsTr("Cost:")
             enabled: false
             value: qsTr("%1 %2 (%3)").arg(cost).arg(currency).arg(costStatus)
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
         TextFieldRow {
             label: qsTr("Comments:")
             enabled: false
             value: comments
-            color: backgroundColor
-            textFieldItem.backgroundColor: color
+            color: eventCard.backgroundColor
+            textFieldItem.backgroundColor: eventCard.backgroundColor
         }
     }
 

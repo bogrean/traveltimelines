@@ -67,15 +67,24 @@ AppPage {
                 allowEditing: true
                 label: qsTr("Start on: ")
                 selectedDate: tripEvent ? tripEvent.startDate : new Date()
+                pickerDialog: datePickerDialog
             }
-            TextFieldRow {
+            TimeField {
+                id: startTime
+                width: thisPage.width
+                allowEditing: true
+                label: qsTr("Start at: ")
+                selectedDate: tripEvent ? tripEvent.startDate : new Date()
+                pickerDialog: timePickerDialog
+            }
+            /*TextFieldRow {
                 id: startTime
                 width: thisPage.width
                 label: qsTr("Start at: ")
                 placeHolder: qsTr("18:00")
                 textFieldItem.inputMask: "00:00"
                 value: tripEvent ? "%1:%2".arg(tripEvent.startDate.getHours()).arg(tripEvent.startDate.getMinutes()) : "00:00"
-            }
+            }*/
             TextFieldRow {
                 id: startLocation
                 width: thisPage.width
@@ -89,15 +98,25 @@ AppPage {
                 allowEditing: true
                 label: qsTr("End on: ")
                 selectedDate: tripEvent ? tripEvent.endDate : new Date()
+                pickerDialog: datePickerDialog
             }
-            TextFieldRow {
+
+            TimeField {
+                id: endTime
+                width: thisPage.width
+                allowEditing: true
+                label: qsTr("End at: ")
+                selectedDate: tripEvent ? tripEvent.endDate : new Date()
+                pickerDialog: timePickerDialog
+            }
+            /*TextFieldRow {
                 id: endTime
                 width: thisPage.width
                 label: qsTr("End at: ")
                 placeHolder: qsTr("18:00")
                 textFieldItem.inputMask: "00:00"
                 value: tripEvent ? "%1:%2".arg(tripEvent.endDate.getHours()).arg(tripEvent.endDate.getMinutes()) : "00:00"
-            }
+            }*/
             TextFieldRow {
                 id: endLocation
                 width: thisPage.width
@@ -155,11 +174,23 @@ AppPage {
                 text: qsTr("Create event")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
+                    var eventStartDate = new Date(startDate.selectedDate.getFullYear(),
+                                                  startDate.selectedDate.getMonth(),
+                                                  startDate.selectedDate.getDate(),
+                                                  startTime.selectedDate.getHours(),
+                                                  startTime.selectedDate.getMinutes(),
+                                                  startTime.selectedDate.getSeconds())
+                    var eventEndDate = new Date(endDate.selectedDate.getFullYear(),
+                                                  endDate.selectedDate.getMonth(),
+                                                  endDate.selectedDate.getDate(),
+                                                  endTime.selectedDate.getHours(),
+                                                  endTime.selectedDate.getMinutes(),
+                                                  endTime.selectedDate.getSeconds())
                     console.log(">>>>>> Saving event")
                     console.log("   Type: ", eventType.value)
                     console.log("   TripId: ",tripId)
-                    console.log("   Start date: ",startDate.selectedDate)
-                    console.log("   End date: ", endDate.selectedDate)
+                    console.log("   Start date: ", eventStartDate)
+                    console.log("   End date: ", eventEndDate)
                     console.log("   Start location: ", startLocation.value)
                     console.log("   End location: ", endLocation.value)
                     console.log("   Status: : ", eventStatus.value)
@@ -170,8 +201,8 @@ AppPage {
                     if (thisPage.state === "addNew") {
                         dispatcher._createEvent(eventType.value,
                                                 tripId,
-                                                startDate.selectedDate,
-                                                endDate.selectedDate,
+                                                eventStartDate,
+                                                eventEndDate,
                                                 startLocation.value,
                                                 endLocation.value,
                                                 eventStatus.value,
@@ -182,8 +213,8 @@ AppPage {
                         thisPage.navigationStack.pop()
                     } else if (thisPage.state === "editExisting"){
                         tripEvent.type = eventType.value
-                        tripEvent.startDate = startDate.selectedDate
-                        tripEvent.endDate = endDate.selectedDate
+                        tripEvent.startDate = eventStartDate
+                        tripEvent.endDate = eventEndDate
                         tripEvent.startLocation = startLocation.value
                         tripEvent.endLocation = endLocation.value
                         tripEvent.status = eventStatus.value
@@ -218,5 +249,11 @@ AppPage {
             costStatus.value = selectPaidStatus.selectedOption
             close()
         }
+    }
+    DatePickerDialog {
+        id: datePickerDialog
+    }
+    TimePickerDialog {
+        id: timePickerDialog
     }
 }

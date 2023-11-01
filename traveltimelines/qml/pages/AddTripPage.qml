@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Felgo
 
 import "../logic"
+import "../dialogs"
 
 AppPage {
     id: thisPage
@@ -94,12 +95,14 @@ AppPage {
                 width: parent.width
                 allowEditing: true
                 label: qsTr("Start date: ")
+                pickerDialog: datePicker
             }
             DateField {
                 id: endDate
                 width: parent.width
                 allowEditing: true
                 label: qsTr("End date: ")
+                pickerDialog: datePicker
             }
 
             RowLayout{
@@ -131,11 +134,13 @@ AppPage {
                             tripChanged()
                             dispatcher.editTrip(trip)
                         }
-
                     }
                 }
             }
 
+        }
+        DatePickerDialog {
+            id: datePicker
         }
     }
 }

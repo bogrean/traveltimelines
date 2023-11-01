@@ -1,6 +1,5 @@
 import QtQuick
 import Felgo
-import QtQuick.Layouts
 
 import "../dialogs"
 
@@ -8,10 +7,10 @@ TextFieldRow {
     id: dateField
     property date selectedDate: new Date()
     property bool allowEditing: false
-    property DatePickerDialog pickerDialog: null
+    property TimePickerDialog pickerDialog: null
     property bool isEditing: false
 
-    value: selectedDate.toDateString()
+    value: selectedDate.toTimeString()
     enabled: dateField.allowEditing
     clickEnabled: true
 

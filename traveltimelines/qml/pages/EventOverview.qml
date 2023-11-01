@@ -15,20 +15,16 @@ Rectangle {
     required property string comments
     required property int index
     property string currency: "RON"
-    color: "light green"
+
+    property color backgroundColor: "light green"
+    color: backgroundColor
 
     signal clicked()
     signal deleteRequested()
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            eventCard.clicked()
-        }
-    }
-
     Column {
         id: details
+        width: parent.width
         AppText {
             padding: 5
             text: qsTr("%1 to %2").arg(type).arg(endLocation)
@@ -37,46 +33,80 @@ Rectangle {
         DateField {
             selectedDate: startDate
             label: qsTr("Departing on: ")
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
-        AppText {
-            padding: 10
-            text: qsTr("Departing at: %1").arg(startDate.toTimeString())
+        TextFieldRow {
+            label: qsTr("Departing at:")
+            enabled: false
+            value: startDate.toTimeString()
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
-        AppText {
-            padding: 10
-            text: qsTr("Departing from: %1").arg(startLocation)
+        TextFieldRow {
+            label: qsTr("Departing from:")
+            enabled: false
+            value: startLocation
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
         DateField {
             selectedDate: endDate
             label: qsTr("Ariving on: ")
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
-        AppText {
-            padding: 10
-            text: qsTr("Arriving at: %1").arg(endDate.toTimeString())
+        TextFieldRow {
+            label: qsTr("Arriving at")
+            enabled: false
+            value: endDate.toTimeString()
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
-        AppText {
-            padding: 10
-            text: qsTr("Arriving to: %1").arg(endLocation)
+        TextFieldRow {
+            label: qsTr("Arriving in:")
+            enabled: false
+            value: endLocation
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
-        AppText {
-            padding: 10
-            text: qsTr("Operator: %1").arg(operator)
+        TextFieldRow {
+            label: qsTr("Operator:")
+            enabled: false
+            value: operator
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
-        AppText {
-            padding: 10
-            text: qsTr("Cost: %1 %3 (%2)").arg(cost).arg(costStatus).arg(currency)
+        TextFieldRow {
+            label: qsTr("Cost:")
+            enabled: false
+            value: qsTr("%1 %2 (%3)").arg(cost).arg(currency).arg(costStatus)
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
-        AppText {
-            padding: 10
-            text: qsTr("Comments: %1").arg(comments)
+        TextFieldRow {
+            label: qsTr("Comments:")
+            enabled: false
+            value: comments
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
     }
-    IconButton {
+
+    Row {
         anchors.top: details.bottom
-        anchors.right: eventCard.right
-        iconType: IconType.remove
-        onClicked: {
-            eventCard.deleteRequested()
+        anchors.right: details.right
+        IconButton {
+            iconType: IconType.pencil
+            onClicked: {
+                eventCard.clicked()
+            }
+        }
+        IconButton {
+            iconType: IconType.remove
+            onClicked: {
+                eventCard.deleteRequested()
+            }
         }
     }
 }

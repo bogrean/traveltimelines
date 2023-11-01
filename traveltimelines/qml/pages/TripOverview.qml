@@ -8,10 +8,12 @@ Rectangle {
     required property date start
     required property date end
 
+    property color backgroundColor: "light blue"
+
     signal clicked()
     signal deleteRequested()
 
-    color: "light blue"
+    color: backgroundColor
 
     Column {
         id: details
@@ -24,12 +26,14 @@ Rectangle {
         DateField {
             selectedDate: start
             label: qsTr("Starts on: ")
-            color: "light blue"
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
         DateField {
             selectedDate: end
             label: qsTr("Ends on: ")
-            color: "light blue"
+            color: backgroundColor
+            textFieldItem.backgroundColor: color
         }
     }
     Row {

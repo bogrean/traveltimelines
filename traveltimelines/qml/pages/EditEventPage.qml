@@ -77,14 +77,6 @@ AppPage {
                 selectedDate: tripEvent ? tripEvent.startDate : new Date()
                 pickerDialog: timePickerDialog
             }
-            /*TextFieldRow {
-                id: startTime
-                width: thisPage.width
-                label: qsTr("Start at: ")
-                placeHolder: qsTr("18:00")
-                textFieldItem.inputMask: "00:00"
-                value: tripEvent ? "%1:%2".arg(tripEvent.startDate.getHours()).arg(tripEvent.startDate.getMinutes()) : "00:00"
-            }*/
             TextFieldRow {
                 id: startLocation
                 width: thisPage.width

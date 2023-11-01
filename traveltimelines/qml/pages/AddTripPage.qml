@@ -93,13 +93,13 @@ AppPage {
                 id: startDate
                 width: parent.width
                 allowEditing: true
-                labelText: qsTr("Start date: ")
+                label: qsTr("Start date: ")
             }
             DateField {
                 id: endDate
                 width: parent.width
                 allowEditing: true
-                labelText: qsTr("End date: ")
+                label: qsTr("End date: ")
             }
 
             RowLayout{

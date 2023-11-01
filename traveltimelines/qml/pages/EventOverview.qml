@@ -36,7 +36,7 @@ Rectangle {
         }
         DateField {
             selectedDate: startDate
-            labelText: qsTr("Departing on: ")
+            label: qsTr("Departing on: ")
         }
         AppText {
             padding: 10
@@ -48,7 +48,7 @@ Rectangle {
         }
         DateField {
             selectedDate: endDate
-            labelText: qsTr("Ariving on: ")
+            label: qsTr("Ariving on: ")
         }
         AppText {
             padding: 10

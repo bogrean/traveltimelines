@@ -12,14 +12,10 @@ Rectangle {
     signal deleteRequested()
 
     color: "light blue"
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            overview.clicked()
-        }
-    }
+
     Column {
         id: details
+        width: parent.width
         AppText {
             padding: 5
             text: title
@@ -27,19 +23,29 @@ Rectangle {
         }
         DateField {
             selectedDate: start
-            labelText: qsTr("Starts on: ")
+            label: qsTr("Starts on: ")
+            color: "light blue"
         }
         DateField {
             selectedDate: end
-            labelText: qsTr("Ends on: ")
+            label: qsTr("Ends on: ")
+            color: "light blue"
         }
     }
-    IconButton {
+    Row {
         anchors.top: details.bottom
-        anchors.right: overview.right
-        iconType: IconType.remove
-        onClicked: {
-            overview.deleteRequested()
+        anchors.right: details.right
+        IconButton {
+            iconType: IconType.pencil
+            onClicked: {
+                overview.clicked()
+            }
+        }
+        IconButton {
+            iconType: IconType.remove
+            onClicked: {
+                overview.deleteRequested()
+            }
         }
     }
 }

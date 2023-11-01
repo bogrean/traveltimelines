@@ -2,34 +2,21 @@ import QtQuick
 import Felgo
 import QtQuick.Layouts
 
-RowLayout {
+TextFieldRow {
     id: dateField
-    property alias selectedDate: dateValue.selectedDate
-    property alias labelText: dateLabel.text
+    property date selectedDate: new Date()
     property bool allowEditing: false
     property bool isEditing: false
-    spacing: 10
-    AppText {
-        padding: 10
-        id: dateLabel
-        text: qsTr("StartDate: ")
+
+    value: selectedDate.toDateString()
+    enabled: dateField.allowEditing
+    clickEnabled: true
+
+    onClicked: {
+        isEditing = true
+        NativeUtils.displayDatePicker(selectedDate)
     }
-    AppText {
-        id: dateValue
-        property date selectedDate: new Date()
-        text: selectedDate.toDateString()
-    }
-    AppButton {
-        id: edit
-        Layout.alignment: Qt.AlignRight
-        iconType: IconType.edit
-        radius: 30
-        visible: dateField.allowEditing
-        onClicked: {
-            isEditing = true
-            NativeUtils.displayDatePicker(selectedDate)
-        }
-    }
+
     Connections {
         target: NativeUtils
         onDatePickerFinished:(accepted, date) => {

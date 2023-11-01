@@ -68,7 +68,7 @@ AppPage {
                 id: startDate
                 width: parent.width
                 allowEditing: true
-                labelText: qsTr("Start on: ")
+                label: qsTr("Start on: ")
                 selectedDate: tripEvent ? tripEvent.startDate : new Date()
             }
             TextFieldRow {
@@ -90,7 +90,7 @@ AppPage {
                 id: endDate
                 width: parent.width
                 allowEditing: true
-                labelText: qsTr("End on: ")
+                label: qsTr("End on: ")
                 selectedDate: tripEvent ? tripEvent.endDate : new Date()
             }
             TextFieldRow {

@@ -52,7 +52,7 @@ AppPage {
 
             TextFieldRow {
                 id: eventType
-                label: qsTr("Event type")
+                label: qsTr("Event type: ")
                 clickEnabled: true
                 value: tripEvent ? tripEvent.type : "plane"
                 onClicked: {
@@ -105,19 +105,15 @@ AppPage {
                 placeHolder: qsTr("Enter event end location")
                 value: tripEvent ? tripEvent.endLocation : ""
             }
-            RowLayout {
-                spacing: dp(10)
-                width: thisPage.width
-                AppText {
-                    Layout.leftMargin: dp(10)
-                    text: qsTr("Event status: ")
-                }
-                ComboBox {
-                    id: eventStatus
-                    Layout.rightMargin: dp(10)
-                    Layout.alignment: Qt.AlignRight
-                    model: ["todo", "reserved", "onTheSpot"]
-                    currentIndex: tripEvent ? model.indexOf(tripEvent.status) : 0
+
+            TextFieldRow {
+                id: eventStatus
+                label: qsTr("Event status: ")
+                clickEnabled: true
+                value: tripEvent ? tripEvent.status : "todo"
+                onClicked: {
+                    selectEventStatus.setSelection(value)
+                    selectEventStatus.open()
                 }
             }
             TextFieldRow {
@@ -171,7 +167,7 @@ AppPage {
                     console.log("   End date: ", endDate.selectedDate)
                     console.log("   Start location: ", startLocation.value)
                     console.log("   End location: ", endLocation.value)
-                    console.log("   Status: : ", eventStatus.currentValue)
+                    console.log("   Status: : ", eventStatus.value)
                     console.log("   Cost: : ", parseInt(cost.value))
                     console.log("   Cost status: ", costStatus.currentValue)
                     console.log("   Operator: ", operator.value)
@@ -183,7 +179,7 @@ AppPage {
                                                 endDate.selectedDate,
                                                 startLocation.value,
                                                 endLocation.value,
-                                                eventStatus.currentValue,
+                                                eventStatus.value,
                                                 parseInt(cost.value),
                                                 costStatus.currentValue,
                                                 operator.value,
@@ -195,7 +191,7 @@ AppPage {
                         tripEvent.endDate = endDate.selectedDate
                         tripEvent.startLocation = startLocation.value
                         tripEvent.endLocation = endLocation.value
-                        tripEvent.status = eventStatus.currentValue
+                        tripEvent.status = eventStatus.value
                         tripEvent.cost = parseInt(cost.value)
                         tripEvent.costStatus = costStatus.currentValue
                         tripEvent.operator = operator.value
@@ -211,6 +207,13 @@ AppPage {
         id: selectEventType
         onAccepted: {
             eventType.value = selectEventType.selectedOption
+            close()
+        }
+    }
+    EventStatusPicker {
+        id: selectEventStatus
+        onAccepted: {
+            eventStatus.value = selectEventStatus.selectedOption
             close()
         }
     }

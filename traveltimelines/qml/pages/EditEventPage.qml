@@ -124,19 +124,14 @@ AppPage {
                 textFieldItem.inputMask: "00000 RO\\N"
                 value: tripEvent ? tripEvent.cost + " RON" : "0 RON"
             }
-            RowLayout {
-                spacing: dp(10)
-                width: thisPage.width
-                AppText {
-                    Layout.leftMargin: dp(10)
-                    text: qsTr("Paid: ")
-                }
-                ComboBox {
-                    id: costStatus
-                    Layout.rightMargin: dp(10)
-                    Layout.alignment: Qt.AlignRight
-                    model: ["paid", "estimated"]
-                    currentIndex: tripEvent ? model.indexOf(tripEvent.costStatus) : 0
+            TextFieldRow {
+                id: costStatus
+                label: qsTr("Paiment: ")
+                clickEnabled: true
+                value: tripEvent ? tripEvent.costStatus : "todo"
+                onClicked: {
+                    selectPaidStatus.setSelection(value)
+                    selectPaidStatus.open()
                 }
             }
             TextFieldRow {
@@ -169,7 +164,7 @@ AppPage {
                     console.log("   End location: ", endLocation.value)
                     console.log("   Status: : ", eventStatus.value)
                     console.log("   Cost: : ", parseInt(cost.value))
-                    console.log("   Cost status: ", costStatus.currentValue)
+                    console.log("   Cost status: ", costStatus.value)
                     console.log("   Operator: ", operator.value)
                     console.log("   Comments: ", comments.value)
                     if (thisPage.state === "addNew") {
@@ -181,7 +176,7 @@ AppPage {
                                                 endLocation.value,
                                                 eventStatus.value,
                                                 parseInt(cost.value),
-                                                costStatus.currentValue,
+                                                costStatus.value,
                                                 operator.value,
                                                 comments.value)
                         thisPage.navigationStack.pop()
@@ -193,7 +188,7 @@ AppPage {
                         tripEvent.endLocation = endLocation.value
                         tripEvent.status = eventStatus.value
                         tripEvent.cost = parseInt(cost.value)
-                        tripEvent.costStatus = costStatus.currentValue
+                        tripEvent.costStatus = costStatus.value
                         tripEvent.operator = operator.value
                         tripEvent.comments = comments.value
                         tripEventChanged()
@@ -214,6 +209,13 @@ AppPage {
         id: selectEventStatus
         onAccepted: {
             eventStatus.value = selectEventStatus.selectedOption
+            close()
+        }
+    }
+    PaidStatusPIcker {
+        id: selectPaidStatus
+        onAccepted: {
+            costStatus.value = selectPaidStatus.selectedOption
             close()
         }
     }

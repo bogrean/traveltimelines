@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 
 import "../logic"
+import "../dialogs"
 
 AppPage {
     id: thisPage
@@ -49,21 +50,17 @@ AppPage {
             width: thisPage.width
             spacing: dp(10)
 
-            RowLayout {
-                spacing: dp(10)
-                width: thisPage.width
-                AppText {
-                    Layout.leftMargin: dp(10)
-                    text: qsTr("Event type: ")
-                }
-                ComboBox {
-                    id: eventType
-                    Layout.rightMargin: dp(10)
-                    Layout.alignment: Qt.AlignRight
-                    model: ["plane", "accommodation", "ferry", "bus", "rentCar", "drive", "tour"]
-                    currentIndex: tripEvent ? model.indexOf(tripEvent.type) : 0
+            TextFieldRow {
+                id: eventType
+                label: qsTr("Event type")
+                clickEnabled: true
+                value: tripEvent ? tripEvent.type : "plane"
+                onClicked: {
+                    selectEventType.setSelection(value)
+                    selectEventType.open()
                 }
             }
+
             DateField {
                 id: startDate
                 width: parent.width
@@ -168,7 +165,7 @@ AppPage {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     console.log(">>>>>> Saving event")
-                    console.log("   Type: ", eventType.currentValue)
+                    console.log("   Type: ", eventType.value)
                     console.log("   TripId: ",tripId)
                     console.log("   Start date: ",startDate.selectedDate)
                     console.log("   End date: ", endDate.selectedDate)
@@ -180,7 +177,7 @@ AppPage {
                     console.log("   Operator: ", operator.value)
                     console.log("   Comments: ", comments.value)
                     if (thisPage.state === "addNew") {
-                        dispatcher._createEvent(eventType.currentValue,
+                        dispatcher._createEvent(eventType.value,
                                                 tripId,
                                                 startDate.selectedDate,
                                                 endDate.selectedDate,
@@ -193,7 +190,7 @@ AppPage {
                                                 comments.value)
                         thisPage.navigationStack.pop()
                     } else if (thisPage.state === "editExisting"){
-                        tripEvent.type = eventType.currentValue
+                        tripEvent.type = eventType.value
                         tripEvent.startDate = startDate.selectedDate
                         tripEvent.endDate = endDate.selectedDate
                         tripEvent.startLocation = startLocation.value
@@ -208,6 +205,13 @@ AppPage {
                     }
                 }
             }
+        }
+    }
+    EventTypePicker {
+        id: selectEventType
+        onAccepted: {
+            eventType.value = selectEventType.selectedOption
+            close()
         }
     }
 }

@@ -82,7 +82,7 @@ AppPage {
                 width: thisPage.width
                 label: qsTr("Start in: ")
                 placeHolder: qsTr("Enter event start location")
-                value: tripEvent ? tripEvent.startLocation : ""
+                value: tripEvent && tripEvent.startLocation ? tripEvent.startLocation : ""
             }
             DateField {
                 id: endDate
@@ -101,20 +101,12 @@ AppPage {
                 selectedDate: tripEvent ? tripEvent.endDate : new Date()
                 pickerDialog: timePickerDialog
             }
-            /*TextFieldRow {
-                id: endTime
-                width: thisPage.width
-                label: qsTr("End at: ")
-                placeHolder: qsTr("18:00")
-                textFieldItem.inputMask: "00:00"
-                value: tripEvent ? "%1:%2".arg(tripEvent.endDate.getHours()).arg(tripEvent.endDate.getMinutes()) : "00:00"
-            }*/
             TextFieldRow {
                 id: endLocation
                 width: thisPage.width
                 label: qsTr("End in: ")
                 placeHolder: qsTr("Enter event end location")
-                value: tripEvent ? tripEvent.endLocation : ""
+                value: tripEvent && tripEvent.endLocation ? tripEvent.endLocation  : ""
             }
 
             TextFieldRow {

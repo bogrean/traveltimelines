@@ -63,7 +63,7 @@ Item {
         storage.setValue("nextEventIndex", _data.nextEventId)
     }
     function updateTripAfterEventChange(event) {
-        var tripIndex = _data.getIndex(event.tripId, _data.trips)
+        var tripIndex = _data.getTripIndex(event.tripId)
         if (tripIndex >= 0) {
             if (event.startDate < trips[tripIndex].start) {
                 trips[tripIndex].start.setFullYear(event.startDate.getFullYear())
@@ -75,21 +75,18 @@ Item {
                 trips[tripIndex].end.setMonth(event.endDate.getMonth())
                 trips[tripIndex].end.setDate(event.endDate.getDate())
             }
-            sortTrips()
-            saveTrips()
-            tripsChanged()
         }
     }
 
     Connections {
         id: tripsControllerConnections
+        target: dispatcher
 
         onCreateTrip: newTrip => {
             newTrip.tripId = _data.nextId
             _data.nextId++
             _data.trips.push(newTrip)
             sortTrips()
-            saveTrips()
             tripsChanged()
         }
         onDeleteTrip: tripId => {
@@ -97,16 +94,17 @@ Item {
                 _data.removeTripEvents(tripId)
                 updateSelectedTripEvents(selectedTripId)
                 saveTrips()
+                saveEvents()
                 tripsChanged()
         }
         onEditTrip: existingTrip => {
-            var existingIndex = _data.getIndex(existingTrip.tripId, _data.trips)
+            var existingIndex = _data.getTripIndex(existingTrip.tripId)
             if (existingIndex >= 0) {
                 _data.trips[existingIndex].title = existingTrip.title
                 _data.trips[existingIndex].start = existingTrip.start
                 _data.trips[existingIndex].end = existingTrip.end
                 sortTrips()
-                saveTrips()
+                saveEvents()
                 tripsChanged()
                 updateSelectedTripEvents(existingTrip.tripId)
             }
@@ -128,8 +126,7 @@ Item {
 
     Connections {
         id: eventsControllerConnections
-
-
+        target: eventsDispatcher
 
         onCreateEvent: newEvent => {
             newEvent.eventId = _data.nextEventId
@@ -139,7 +136,9 @@ Item {
                 updateSelectedTripEvents(selectedTripId)
             }
             updateTripAfterEventChange(newEvent)
+            saveTrips()
             saveEvents()
+            tripsChanged()
         }
 
         onDeleteEvent: eventId => {
@@ -148,7 +147,7 @@ Item {
             saveEvents()
         }
         onEditEvent: existingEvent => {
-            var existingIndex = _data.getIndex(existingEvent.eventId, _data.events)
+            var existingIndex = _data.getEventIndex(existingEvent.eventId)
             if (existingIndex >= 0) {
                 _data.events[existingIndex].type = existingEvent.type
                 _data.events[existingIndex].startDate = existingEvent.startDate
@@ -163,6 +162,8 @@ Item {
                 updateSelectedTripEvents(selectedTripId)
                 updateTripAfterEventChange(existingEvent)
                 saveEvents()
+                saveTrips()
+                tripsChanged()
             }
         }
         onReloadEvents: {
@@ -189,7 +190,7 @@ Item {
         property var events: []
         property int nextEventId: 1
 
-        function getIndex(tripId, arr) {
+        function getTripIndex(tripId) {
             var existingIndex = -1
             const findIndex = (trip, index) => {
                             if (trip && trip.tripId === tripId) {
@@ -198,7 +199,19 @@ Item {
                             }
                             return false
                         }
-            arr.some(findIndex)
+            trips.some(findIndex)
+            return existingIndex
+        }
+        function getEventIndex(eventId) {
+            var existingIndex = -1
+            const findIndex = (event, index) => {
+                            if (event && event.eventId === eventId) {
+                                existingIndex = index
+                                return true
+                            }
+                            return false
+                        }
+            events.some(findIndex)
             return existingIndex
         }
 

@@ -1,0 +1,12 @@
+project = traveltimelines
+description = Developer documentation for a Felgo app
+version = We don't have one
+
+outputdir = html
+headerdirs += ../
+sourcedirs += ../qml/dialogs \
+            ../qml/logic \
+            ../qml/model \
+            ../qml/pages \
+            ../qml \
+            .

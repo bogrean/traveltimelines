@@ -1,0 +1,33 @@
+/*!
+\page traveltimelines.html
+\title Travel Timelines App
+
+\section1 Why another trip planning app?
+
+
+It can be quite complicated to plan your holidays if you go off the beaten path. \
+If you found yourself in a situation that you need to take 3 Inter-city busses, \
+1 plane, 1 ferry, a night train and find 2 nights of accommodation just to reach \
+your holiday destination, you know it can be difficult to keep track of all your \
+reservations and tickets.
+
+This app will help you organise your trip showing all travel events in a timeline, \
+displaying details about the events and actions that need to be taken.
+
+\section1 Technologies used
+
+\section1 App architecture
+
+\section2 Overview
+
+\section2 Model
+
+\section2 Storage
+\section2 Logic
+\section2 Pages
+
+\section2 Helpers
+
+\section2 What's next?
+
+*/

@@ -40,6 +40,7 @@ AppPage {
     */
     property var trip: null
 
+    //! [states]
     states: [
         State {
             name: "addNew"
@@ -98,10 +99,12 @@ AppPage {
             }
         }
     ]
+    //! [states]
     state: "addNew"
 
     title: qsTr("Add trip")
 
+    //! [contents]
     AppFlickable{
         anchors.fill: parent
         contentHeight: pageContent.height
@@ -138,7 +141,7 @@ AppPage {
 
                 AppButton {
                     id: addEventsBtn
-                    text: qsTr("Add events")
+                    text: qsTr("Edit events")
                     Layout.alignment: Qt.AlignCenter
                     onClicked: {
                         dispatcher.fetchTripData(thisPage.trip ? thisPage.trip.tripId : -1)
@@ -164,8 +167,8 @@ AppPage {
                     }
                 }
             }
-
         }
+        //! [contents]
         DatePickerDialog {
             id: datePicker
         }

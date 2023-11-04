@@ -174,8 +174,106 @@ There are two types of pages we have defined in this app. Overview pages and edi
 
 Overview pages are pages that do not allow for editing, but present the de details of either a trip or a trip event and
 allow adding new trips or trip events, respectively. The two overview pages are PROJECT_ROOT/qml/pages/TripsOverviewPage.qml
-and EventsOverviewPage.qml
+and EventsOverviewPage.qml. Both have a similar structure, so we will exemplify with TripsOverviewPage
 
+\quotefromfile ../qml/pages/TripsOverviewPage.qml
+
+The page needs a title, so we set it:
+
+\skipto title
+\printline title
+
+Then we configure the navigation bar:
+
+\snippet ../qml/pages/TripsOverviewPage.qml navigation bar
+
+This creates a small "+" button which we'll use to add new trips. As you can see, we navigate to a new page that will handle
+the adding of a new trip
+
+Next is creating the model with the trips to be displayed:
+
+\snippet ../qml/pages/TripsOverviewPage.qml object model
+
+Here are exposing the trip objects as a JSON objects, and defines which fields will be used
+
+Then we are displaying the list of trips using an \l {https://felgo.com/doc/felgo-applistview/} {AppListView} with
+TripOverview delegates.
+
+\snippet ../qml/pages/TripsOverviewPage.qml trips display
+
+We also add the signal handlers for editing a trip or deleting one.
+
+\section3 Editing pages
+
+Editing pages are pages that allow editing the details of trips and trip events. The two editin pages are
+PROJECT_ROOT/qml/pages/AddTripPage.qml and PROJECT_ROOT/qml/pages/EditEventPage.qml. They too have similar structure, so
+we will be discussing over AddTripPage only.
+
+The editing page is used both for adding new trips and editing existing trips. Because of this, there are slight
+changes in the some areas of the page: title, button texts or values displayed. To be able to do this we used QML states:
+
+\snippet ../qml/pages/AddTripPage.qml states
+
+This code defines the two states this page can be used in, and what is being change in each of these states.
+
+Then we add the content of the page. To ensure we can scroll, we're using an \l {https://felgo.com/doc/felgo-appflickable/} {AppFlickable}:
+
+\snippet ../qml/pages/AddTripPage.qml contents
+
+In the flickable we add the fields we can edit for the trip: the title, start date and end date
+
+At the button of page we add 2 buttons: one for adding events to the trip, whihc will open the EventsOverviewPage with the
+events for this trip and one to save the current trip data and jump back to the TripsOverviewPage.
+
+\endsection3
+
+To reuse QML code, several reusable components were created and instantiated by the pages.
+
+\section3 DateField and TimeField
+
+These two components are very similar in structure and usage, the only difference being the dialog they're using
+to select the date or time, respectively, and what part of the date they're showing. In hindsight these two components
+can bea single component with a few more configuration properties
+
+\quotefile ../qml/pages/DateField.qml
+
+The DateField uses a \l {https://felgo.com/doc/felgo-textfieldrow/} {TextFieldRow} to show a label and the date
+representation. When the user wants to edit the date a dialog is opened which allows them to select the date or time.
+
+It is important to notice that the dialog is set as a property and multiple fields could be sharing the same
+dialog instance. To avoid updating all fields when using the dialog, special care must be taken to update
+only if the field is the one that opened the dialog. This was done as follows:
+
+\snippet ../qml/pages/DateField.qml picker handling
+
+\section3 TripOverview and EventOverview
+
+These two coponents are again very similar in structure. They are design as delegates and have all model data available
+as properties.
+
+They are using QML states to slightly alter the how the overview is displayed in various situations. For example the EventOverview
+updates it's text based on what event type is being displayed by it:
+
+\snippet ../qml/pages/EventOverview.qml state definition
+
+\quotefromfile ../qml/pages/EventOverview.qml
+\skipto state: eventCard.type
+
+And we use the event type to select the state:
+\printline state: eventCard.type
+
+Next we display the data fields:
+
+\snippet ../qml/pages/EventOverview.qml contents
+
+It's a basic column of \l {https://felgo.com/doc/felgo-textfieldrow/} {TextFieldRows}, one row per model property.
+
+At the bottom of the overviews, we add two buttons:
+
+\snippet ../qml/pages/EventOverview.qml icon buttons
+
+They trigger notification that the event (or trip, repectively) should be edited or removed. These notifications will be handled by
+the instantiating components.
 
 \section2 Dialogs
 

@@ -49,7 +49,7 @@ Rectangle {
         id: details
         width: parent.width
         AppText {
-            padding: 5
+            padding: dp(5)
             text: title
             font.bold: true
         }

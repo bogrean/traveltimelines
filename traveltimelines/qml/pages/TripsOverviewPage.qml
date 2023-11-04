@@ -38,6 +38,7 @@ AppPage {
 
     title: qsTr("My Trips")
 
+    //! [navigation bar]
     rightBarItem: NavigationBarRow {
         IconButtonBarItem {
             iconType: IconType.plus
@@ -48,19 +49,23 @@ AppPage {
             }
         }
     }
+    //! [navigation bar]
 
+    //! [object model]
     JsonListModel {
         id: myTrips
         source: thisPage.myTrips
         keyField: "tripId"
         fields: ["tripId", "title", "start", "end"]
     }
+    //! [object model]
 
+    //! [trips display]
     AppListView {
         id: tripsView
         anchors.fill: parent
         model: myTrips
-        spacing: 10
+        spacing: dp(10)
         delegate: TripOverview {
             id: tripDelegate
             width: tripsView.width
@@ -79,4 +84,5 @@ AppPage {
             }
         }
     }
+    //! [trips display]
 }

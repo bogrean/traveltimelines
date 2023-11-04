@@ -99,6 +99,7 @@ Rectangle {
     signal deleteRequested()
 
     states: [
+        //! [state definition]
         State {
             name: "plane"
             PropertyChanges {
@@ -130,6 +131,7 @@ Rectangle {
                 label: qsTr("Arrival ariport:")
             }
         },
+        //! [state definition]
         State {
             name: "rentCar"
             PropertyChanges {
@@ -328,12 +330,13 @@ Rectangle {
 
     state: eventCard.type
 
+    //! [contents]
     Column {
         id: details
         width: parent.width
         AppText {
             id: header
-            padding: 5
+            padding: dp(5)
             text: qsTr("%1 to %2").arg(type).arg(endLocation)
             font.bold: true
         }
@@ -407,7 +410,9 @@ Rectangle {
             textFieldItem.backgroundColor: eventCard.backgroundColor
         }
     }
+        //! [contents]
 
+    //! [icon buttons]
     Row {
         anchors.top: details.bottom
         anchors.right: details.right
@@ -424,4 +429,5 @@ Rectangle {
             }
         }
     }
+    //! [icon buttons]
 }

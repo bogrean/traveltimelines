@@ -46,7 +46,7 @@ TextFieldRow {
     value: selectedDate.toDateString()
     enabled: dateField.allowEditing
     clickEnabled: true
-
+    //! [picker handling]
     onClicked: {
         isEditing = true
         pickerDialog.setDate(dateField.selectedDate)
@@ -63,4 +63,5 @@ TextFieldRow {
             }
         }
     }
+    //! [picker handling]
 }

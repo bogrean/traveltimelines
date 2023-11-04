@@ -10,7 +10,7 @@ import "../dialogs"
   This is an utility component to be used where we need to show a time.
 
   The component displays a label and a text field showing the time. It opens a \
-  \l TimePickerDialog when the user tries to edit the date.
+  \l DatePickerDialog when the user tries to edit the date.
 */
 
 TextFieldRow {
@@ -32,7 +32,7 @@ TextFieldRow {
 
       The dialog that will be used to input the new time.
     */
-    property TimePickerDialog pickerDialog: null
+    property DatePickerDialog pickerDialog: null
     /*!
       \qmlproperty bool TimeField::isEditing
 

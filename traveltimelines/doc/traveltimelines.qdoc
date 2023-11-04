@@ -285,6 +285,11 @@ To help users input details in specific format, sever dialogs were created. They
 
 DatePickerDialog is used to select a date or time.
 
+\quotefile ../qml/dialogs/DatePickerDialog.qml
+
+We are using the QML ststaes system to alter the behavior to be either a date picker or a time picker by changing the
+title and mode of the \l {https://felgo.com/doc/felgo-datepicker/} {DatePicker}.
+
 EventStatusPicker, EventTypePicker and PaidStatusPIcker are used to select an option from a fixed set of available options.
 As they all follow the same structure, we will focus on PaidStatusPIcker
 

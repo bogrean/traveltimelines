@@ -270,8 +270,10 @@ AppPage {
     }
     DatePickerDialog {
         id: datePickerDialog
+        state: "datePicker"
     }
-    TimePickerDialog {
+    DatePickerDialog {
         id: timePickerDialog
+        state: "timePicker"
     }
 }

@@ -29,6 +29,32 @@ Dialog {
     */
     property alias selectedDate: datePicker.selectedDate
 
+    states: [
+        State {
+            name: "datePicker"
+            PropertyChanges {
+                target: datePicker
+                datePickerMode: datePicker.dateMode
+            }
+            PropertyChanges {
+                target: picker
+                title: qsTr("Select date:")
+            }
+        },
+        State {
+            name: "timePicker"
+            PropertyChanges {
+                target: datePicker
+                datePickerMode: datePicker.timeMode
+            }
+            PropertyChanges {
+                target: picker
+                title: qsTr("Select time:")
+            }
+        }
+    ]
+    state: "datePicker"
+
     title: qsTr("Select Date")
     positiveActionLabel: qsTr("Done")
     negativeAction: false

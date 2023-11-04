@@ -171,6 +171,7 @@ AppPage {
         //! [contents]
         DatePickerDialog {
             id: datePicker
+            state: "datePicker"
         }
     }
 }

@@ -39,6 +39,9 @@ Trips are a cronologicaly sequence of trip events. They will be defined by the f
 \li Trip events: the events making up this trip
 \endlist
 
+From the user point of view, the app is rather simple: there are 4 pages, with a simple transition scheme between them.
+
+\image app-flow.png
 
 \section1 Technologies used
 \list

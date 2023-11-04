@@ -10,3 +10,5 @@ sourcedirs += ../qml/dialogs \
             ../qml/pages \
             ../qml \
             .
+
+imagedirs += .

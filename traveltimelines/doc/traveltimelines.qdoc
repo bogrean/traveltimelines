@@ -54,6 +54,13 @@ displaying details about the events and actions that need to be taken.
 
 \section2 Overview
 
+Beacuse of the simple architecture flow and features it does not require a complex \
+architecture. The chosen architecture is very well described in \
+\l {https://felgo.com/doc/apps-howto-model-view-separation/#simple-flux-like-mvc-example-for-qml} {Felgo's MVC Example}
+
+This how the TravelTimelines application is structured based on that architectre
+\image app-architecture.png
+
 \section2 Model
 
 \section2 Storage

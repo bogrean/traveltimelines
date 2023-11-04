@@ -14,7 +14,7 @@ import Felgo
 
 Item {
     id: tripModel
-
+    // defined properties
     /*!
       \qmlproperty alias TripModel::dispatcher
 
@@ -46,6 +46,8 @@ Item {
       The id of the selected trip
     */
     property int selectedTripId: -1
+
+    // helper functions
     /*!
       \qmlmethod void TripModel::updateSelectedTripEvents(int tripId)
 
@@ -101,6 +103,7 @@ Item {
         trips.sort(comparator)
     }
 
+    //! [writing to storage]
     /*!
       \qmlmethod void TripModel::saveTrips()
 
@@ -119,6 +122,7 @@ Item {
         storage.setValue("events", _data.events)
         storage.setValue("nextEventIndex", _data.nextEventId)
     }
+    //! [writing to storage]
 
     /*!
       \qmlmethod void TripModel::updateTripAfterEventChange(var event)
@@ -141,6 +145,7 @@ Item {
         }
     }
 
+    //! [signal handlers]
     Connections {
         id: tripsControllerConnections
         target: dispatcher
@@ -239,13 +244,16 @@ Item {
             updateSelectedTripEvents(selectedTripId)
         }
     }
+    //! [signal handlers]
 
+    //! [storage instance]
     Storage {
         id: storage
         databaseName: "traveltimelines"
     }
+    //! [storage instance]
 
-
+    //! [private model]
     Item {
         id: _data
         property int nextId: 1
@@ -296,4 +304,5 @@ Item {
             _data.events = _data.events.filter(filterPredicate)
         }
     }
+    //! [private model]
 }

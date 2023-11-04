@@ -15,6 +15,31 @@ displaying details about the events and actions that need to be taken.
 
 \section2 How to use the app
 
+The application revolves around two concepts: the trip and trip events.
+
+Trip events are activitoes that will happend during a trip: you can fly somehwere, take a bus, rent a car,
+join a tour, sleep somewhere, etc. Each event will be defined by several properties:
+\list
+\li Event type: what exactly is this kind of event
+\li Event status: in what stage of the planning process is this event? Do we have to plan it? Do we have a confirmed reservation?
+\li Event start location: where do we have to be when this events starts. e.g.: airport, port, bus station, etc.
+\li Event start date: the date and time when this event is scheduled to start
+\li Event end location: where the event is ending. e.g. airport, bus station, port, etc.
+\li Event end date: when the event is scheduled to end
+\li Event cost: how much it cost do do this event
+\li Event cost status: information whether we paid or not for this event
+\li Event operator: who is the entoty which takes you in this event? e.g: airline, bus company, hotel, tour operator, etc.
+\li User comments: any observations the user feels are relevant
+\endlist
+
+Trips are a cronologicaly sequence of trip events. They will be defined by the following properties:
+\list
+\li Start date: the day when the trip will start
+\li End date: the day when the trip will end
+\li Trip events: the events making up this trip
+\endlist
+
+
 \section1 Technologies used
 \list
 \li \l {https://www.qt.io/product/framework} {Qt}
@@ -52,8 +77,6 @@ displaying details about the events and actions that need to be taken.
 
 \section1 App architecture
 
-\section2 Overview
-
 Beacuse of the simple architecture flow and features it does not require a complex \
 architecture. The chosen architecture is very well described in \
 \l {https://felgo.com/doc/apps-howto-model-view-separation/#simple-flux-like-mvc-example-for-qml} {Felgo's MVC Example}
@@ -61,14 +84,109 @@ architecture. The chosen architecture is very well described in \
 This how the TravelTimelines application is structured based on that architectre
 \image app-architecture.png
 
-\section2 Model
+\section1 How To Do it
+
+\section2 Project setup
+
+The application is based on the Felgo Single Page app template. Use it when creating a new project:
+\image select-project-type.png
+
+After selecting the project template, go ahead with the project wizzard. The project createby the wizzard
+contains everything you need.
+
+For a clearer code structure you can create the following directories:
+\list
+\li PROJECT_ROOT/qml/dialogs
+\li PROJECT_ROOT/qml/logic
+\li PROJECT_ROOT/qml/model
+\li PROJECT_ROOT/qml/pages
+\endlist
+where PROJECT_ROOT is the project directory
+
+\section2 Creating the logic
+
+First, we define what functionality we want our app the handle. In our case, we support similar functionality for
+both both trips, and trip events:
+\list
+\li adding new
+\li removing
+\li editing existing ones
+\endlist
+
+Thus we create the 2 controllers in the PROJECT_ROOT/qml/logic directories: TripsController.qml and EventsController.qml
+These are the contents of EventsController.qml:
+
+\quotefile ../qml/logic/TripsController.qml
+
+As you cann see, besides the essential functionality we have two more defined:
+
+\code
+signal fetchTripData(int tripId)
+\endcode
+
+and
+
+\code
+signal reloadTrips()
+\endcode
+
+This is functionality that we realized is needed later, so we extended the initial file. This the approach to take when new
+functionality is added
+
+In addition to signals defining functionality, a utility function was added for a cleaner overall code:
+
+\quotefromfile ../qml/logic/TripsController.qml
+\skipto _createTrip
+\printuntil
+
+EventsController.qml has a similar structure.
+
+\section2 Creating the model
+
+The model of the application is implemented in the PROJECT_ROOT/qml/model/TripModel.qml.
+
+We define the required properties, a few helper functions, then we implement the event handlers for the controllers
+\snippet ../qml/model/TripModel.qml signal handlers
+
+You can see that here we are implementing allcontrollers signal handlers. Special attention must be paid to ensure that:
+\list
+\li Trips are kept in chornological order
+\li whenever an event is added or editted, we ensure that the trip's start and end date are updated accordingly
+\li we expose the right events based on the selected trip, in chronological order
+\endlist
 
 \section2 Storage
-\section2 Logic
+
+At this point we are considering only local storage for the data. This is handled by a
+\l {https://felgo.com/doc/felgo-storage/} {Storage} instance, added in the TripModel. We have named our database,
+so we don't interract with other storage databases:
+
+\snippet ../qml/model/TripModel.qml storage instance
+
+You can see that accessing the storage is easy. For writing we created two helper functions:
+\snippet ../qml/model/TripModel.qml writing to storage
+
 \section2 Pages
 
-\section2 Helpers
+There are two types of pages we have defined in this app. Overview pages and editing pages.
 
-\section2 What's next?
+\section3 Overview pages
+
+Overview pages are pages that do not allow for editing, but present the de details of either a trip or a trip event and
+allow adding new trips or trip events, respectively. The two overview pages are PROJECT_ROOT/qml/pages/TripsOverviewPage.qml
+and EventsOverviewPage.qml
+
+
+\section2 Dialogs
+
+\section1 What's next?
+
+\list
+\li Support for multiple currencies
+\li Extend trip details to include cost, time & distance statistics
+\li Pick start and end locations via map selection
+\li online storage
+\li use it on the next holiday and see what the next features are
+\endlist
 
 */

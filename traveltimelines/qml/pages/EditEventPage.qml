@@ -163,7 +163,7 @@ AppPage {
             }
             TextFieldRow {
                 id: costStatus
-                label: qsTr("Paiment: ")
+                label: qsTr("Payment: ")
                 clickEnabled: true
                 value: tripEvent ? tripEvent.costStatus : "todo"
                 onClicked: {

@@ -1,16 +1,56 @@
 import QtQuick
 import Felgo
+/*!
+  \qmltype TripModel
+  \brief Implements the data model functionality for the TravelTimelines app.
+
+  The TripModel item handles the data used by the TravelTimelines app.
+  \list
+  \li It updates the data according to the notifications sent by controllers
+  \li It updates the local storage after data has been changed
+  \li provides trip & event data access to the item users
+  \endlist
+*/
 
 Item {
     id: tripModel
 
+    /*!
+      \qmlproperty alias TripModel::dispatcher
+
+      The controller responsible for the trips notifications.
+    */
     property alias dispatcher: tripsControllerConnections.target
+    /*!
+      \qmlproperty alias TripModel::trips
+
+      \readonly
+
+      An array containg the JSON documents of created trips
+    */
     readonly property alias trips: _data.trips
+    /*!
+      \qmlproperty alias TripModel::eventsDispatcher
 
+      The controller responsible for the events notifications.
+    */
     property alias eventsDispatcher: eventsControllerConnections.target
-    property var tripEvents: []
-    property int selectedTripId: -1
+    /*!
+      \qmlproperty var TripModel::tripEvents
 
+      An array containing the JSON documents for the trip events for the selected trip
+    */
+    property var tripEvents: []
+    /*!
+      \qmlproperty int TripModel::selectedTripId
+      The id of the selected trip
+    */
+    property int selectedTripId: -1
+    /*!
+      \qmlmethod void TripModel::updateSelectedTripEvents(int tripId)
+
+      Updates \l tripEvents property of the \l TripModel with the events of trip with id \a tripId
+    */
     function updateSelectedTripEvents(tripId) {
         selectedTripId = tripId
         const filterPredicate = (event) => {
@@ -36,6 +76,12 @@ Item {
 
         tripEventsChanged()
     }
+
+    /*!
+      \qmlmethod void TripModel::sortTrips()
+
+      Sorts the trips in the model ascending based on start time
+    */
     function sortTrips() {
         const comparator = (a, b) => {
             if (a.start < b.start) {
@@ -54,14 +100,31 @@ Item {
         }
         trips.sort(comparator)
     }
+
+    /*!
+      \qmlmethod void TripModel::saveTrips()
+
+      Saves the model's trips into loacal storage
+    */
     function saveTrips() {
         storage.setValue("trips", _data.trips)
         storage.setValue("nextTripIndex", _data.nextId)
     }
+    /*!
+      \qmlmethod void TripModel::saveEvents()
+
+      Saves the model's trips into loacal storage
+    */
     function saveEvents() {
         storage.setValue("events", _data.events)
         storage.setValue("nextEventIndex", _data.nextEventId)
     }
+
+    /*!
+      \qmlmethod void TripModel::updateTripAfterEventChange(var event)
+
+      Updates trip data according to the changes in the \a event
+    */
     function updateTripAfterEventChange(event) {
         var tripIndex = _data.getTripIndex(event.tripId)
         if (tripIndex >= 0) {

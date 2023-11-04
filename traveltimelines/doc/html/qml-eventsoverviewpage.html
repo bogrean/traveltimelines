@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- EventsOverviewPage.qml -->
+  <meta name="description" content="Page displaying the events of a selected trip.">
+  <title>EventsOverviewPage QML Type | traveltimelines</title>
+</head>
+<body>
+<li>EventsOverviewPage</li>
+<div class="sidebar">
+<div class="toc">
+<h3 id="toc">Contents</h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title" translate="no">EventsOverviewPage QML Type</h1>
+<!-- $$$EventsOverviewPage-brief -->
+<p>Page displaying the events of a selected trip. <a href="#details">More...</a></p>
+<!-- @@@EventsOverviewPage -->
+<ul>
+<li><a href="qml-eventsoverviewpage-members.html">List of all members, including inherited members</a></li>
+</ul>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn" translate="no"><b><a href="qml-eventsoverviewpage.html#dispatcher-prop" translate="no">dispatcher</a></b> : EventsController</li>
+<li class="fn" translate="no"><b><a href="qml-eventsoverviewpage.html#editEventPage-prop" translate="no">editEventPage</a></b> : Component</li>
+<li class="fn" translate="no"><b><a href="qml-eventsoverviewpage.html#selectedTripId-prop" translate="no">selectedTripId</a></b> : int</li>
+<li class="fn" translate="no"><b><a href="qml-eventsoverviewpage.html#selectedTripName-prop" translate="no">selectedTripName</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventsoverviewpage.html#tripEvents-prop" translate="no">tripEvents</a></b> : var</li>
+</ul>
+<!-- $$$EventsOverviewPage-description -->
+<h2 id="details">Detailed Description</h2>
+<p>This is an application page that displays &amp; edits the events of a trip.</p>
+<p>Events are displayed using an <a href="qml-eventoverview.html" translate="no">EventOverview</a></p>
+<p>New events can be added</p>
+<!-- @@@EventsOverviewPage -->
+<h2>Property Documentation</h2>
+<!-- $$$dispatcher -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="dispatcher-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">dispatcher</span> : <span class="type"><a href="qml-eventscontroller.html" translate="no">EventsController</a></span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The <a href="qml-eventscontroller.html" translate="no">EventsController</a> instance that's used to send notifications about events</p>
+</div></div><!-- @@@dispatcher -->
+<br/>
+<!-- $$$editEventPage -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="editEventPage-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">editEventPage</span> : <span class="type">Component</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Component that will be used to edit the data of an event</p>
+</div></div><!-- @@@editEventPage -->
+<br/>
+<!-- $$$selectedTripId -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="selectedTripId-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">selectedTripId</span> : <span class="type">int</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The id of the trip for which we are displaying the events</p>
+</div></div><!-- @@@selectedTripId -->
+<br/>
+<!-- $$$selectedTripName -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="selectedTripName-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">selectedTripName</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The name of the trip for which we are displaying the events</p>
+</div></div><!-- @@@selectedTripName -->
+<br/>
+<!-- $$$tripEvents -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="tripEvents-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">tripEvents</span> : <span class="type">var</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>An array containing the events objects associated with the selected trip</p>
+</div></div><!-- @@@tripEvents -->
+<br/>
+</body>
+</html>

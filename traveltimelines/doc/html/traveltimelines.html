@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- traveltimelines.qdoc -->
+  <title>Travel Timelines App | traveltimelines</title>
+</head>
+<body>
+<div class="sidebar">
+<div class="toc">
+<h3 id="toc">Contents</h3>
+<ul>
+<li class="level1"><a href="#why-another-trip-planning-app">Why another trip planning app?</a></li>
+<li class="level2"><a href="#how-to-use-the-app">How to use the app</a></li>
+<li class="level1"><a href="#technologies-used">Technologies used</a></li>
+<li class="level1"><a href="#app-architecture">App architecture</a></li>
+<li class="level1"><a href="#how-to-do-it">How To Do it</a></li>
+<li class="level2"><a href="#project-setup">Project setup</a></li>
+<li class="level2"><a href="#creating-the-logic">Creating the logic</a></li>
+<li class="level2"><a href="#creating-the-model">Creating the model</a></li>
+<li class="level2"><a href="#storage">Storage</a></li>
+<li class="level2"><a href="#pages">Pages</a></li>
+<li class="level3"><a href="#overview-pages">Overview pages</a></li>
+<li class="level3"><a href="#editing-pages">Editing pages</a></li>
+<li class="level3"><a href="#datefield">DateField</a></li>
+<li class="level3"><a href="#tripoverview-and-eventoverview">TripOverview and EventOverview</a></li>
+<li class="level2"><a href="#dialogs">Dialogs</a></li>
+<li class="level1"><a href="#what-s-next">What's next?</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Travel Timelines App</h1>
+<!-- $$$traveltimelines.html-description -->
+<div class="descr" id="details">
+<h2 id="why-another-trip-planning-app">Why another trip planning app?</h2>
+<p>It can be quite complicated to plan your holidays if you go off the beaten path. If you found yourself in a situation that you need to take 3 Inter-city busses, 1 plane, 1 ferry, a night train and find 2 nights of accommodation just to reach your holiday destination, you know it can be difficult to keep track of all your reservations and tickets.</p>
+<p>This app will help you organise your trip showing all travel events in a timeline, displaying details about the events and actions that need to be taken.</p>
+<h3 id="how-to-use-the-app">How to use the app</h3>
+<p>The application revolves around two concepts: the trip and trip events.</p>
+<p>Trip events are activitoes that will happend during a trip: you can fly somehwere, take a bus, rent a car, join a tour, sleep somewhere, etc. Each event will be defined by several properties:</p>
+<ul>
+<li>Event type: what exactly is this kind of event</li>
+<li>Event status: in what stage of the planning process is this event? Do we have to plan it? Do we have a confirmed reservation?</li>
+<li>Event start location: where do we have to be when this events starts. e.g&#x2e;: airport, port, bus station, etc.</li>
+<li>Event start date: the date and time when this event is scheduled to start</li>
+<li>Event end location: where the event is ending. e.g&#x2e; airport, bus station, port, etc.</li>
+<li>Event end date: when the event is scheduled to end</li>
+<li>Event cost: how much it cost do do this event</li>
+<li>Event cost status: information whether we paid or not for this event</li>
+<li>Event operator: who is the entoty which takes you in this event? e.g: airline, bus company, hotel, tour operator, etc.</li>
+<li>User comments: any observations the user feels are relevant</li>
+</ul>
+<p>Trips are a cronologicaly sequence of trip events. They will be defined by the following properties:</p>
+<ul>
+<li>Start date: the day when the trip will start</li>
+<li>End date: the day when the trip will end</li>
+<li>Trip events: the events making up this trip</li>
+</ul>
+<p>From the user point of view, the app is rather simple: there are 4 pages, with a simple transition scheme between them.</p>
+<p class="centerAlign"><img src="images/app-flow.png" alt="" /></p><h2 id="technologies-used">Technologies used</h2>
+<ul>
+<li><a href="https://www.qt.io/product/framework" translate="no">Qt</a></li>
+<li>Several elements from <a href="https://felgo.com/apps" translate="no">Felgo SDK</a><ul>
+<li>Essentials<ul>
+<li><a href="https://felgo.com/doc/felgo-app/" translate="no">App</a></li>
+<li><a href="https://felgo.com/doc/felgo-appflickable/" translate="no">AppFlickable</a></li>
+<li><a href="https://felgo.com/doc/felgo-apppage/" translate="no">AppPage</a></li>
+</ul>
+</li>
+<li>Controls<ul>
+<li><a href="https://felgo.com/doc/felgo-appbutton/" translate="no">AppButton</a></li>
+<li><a href="https://felgo.com/doc/felgo-applistview/" translate="no">AppListView</a></li>
+<li><a href="https://felgo.com/doc/felgo-appradio/" translate="no">AppRadio</a></li>
+<li><a href="https://felgo.com/doc/felgo-apptext/" translate="no">AppText</a></li>
+<li><a href="https://felgo.com/doc/felgo-datepicker/" translate="no">DatePicker</a></li>
+<li><a href="https://felgo.com/doc/felgo-dialog/" translate="no">Dialog</a></li>
+<li><a href="https://felgo.com/doc/felgo-iconbutton/" translate="no">Iconbutton</a></li>
+<li><a href="https://felgo.com/doc/felgo-textfieldrow/" translate="no">TextFieldRow</a></li>
+</ul>
+</li>
+<li>Navigation<ul>
+<li><a href="https://felgo.com/doc/felgo-iconbuttonbaritem/" translate="no">IconButtonBarItem</a></li>
+<li><a href="https://felgo.com/doc/felgo-navigationbarrow/" translate="no">NavigationBarRow</a></li>
+<li><a href="https://felgo.com/doc/felgo-navigationstack/" translate="no">NavigationStack</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Utility<ul>
+<li><a href="https://felgo.com/doc/felgo-storage/" translate="no">Storage</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="app-architecture">App architecture</h2>
+<p>Beacuse of the simple architecture flow and features it does not require a complex architecture. The chosen architecture is very well described in <a href="https://felgo.com/doc/apps-howto-model-view-separation/#simple-flux-like-mvc-example-for-qml" translate="no">Felgo's MVC Example</a></p>
+<p>This how the TravelTimelines application is structured based on that architectre</p>
+<p class="centerAlign"><img src="images/app-architecture.png" alt="" /></p><h2 id="how-to-do-it">How To Do it</h2>
+<h3 id="project-setup">Project setup</h3>
+<p>The application is based on the Felgo Single Page app template. Use it when creating a new project:</p>
+<p class="centerAlign"><img src="images/select-project-type.png" alt="" /></p><p>After selecting the project template, go ahead with the project wizzard. The project createby the wizzard contains everything you need.</p>
+<p>For a clearer code structure you can create the following directories:</p>
+<ul>
+<li>PROJECT_ROOT/qml/dialogs</li>
+<li>PROJECT_ROOT/qml/logic</li>
+<li>PROJECT_ROOT/qml/model</li>
+<li>PROJECT_ROOT/qml/pages</li>
+</ul>
+<p>where PROJECT_ROOT is the project directory</p>
+<h3 id="creating-the-logic">Creating the logic</h3>
+<p>First, we define what functionality we want our app the handle. In our case, we support similar functionality for both both trips, and trip events:</p>
+<ul>
+<li>adding new</li>
+<li>removing</li>
+<li>editing existing ones</li>
+</ul>
+<p>Thus we create the 2 controllers in the PROJECT_ROOT/qml/logic directories: <a href="qml-tripscontroller.html" translate="no">TripsController</a>.qml and <a href="qml-eventscontroller.html" translate="no">EventsController</a>.qml These are the contents of <a href="qml-eventscontroller.html" translate="no">EventsController</a>.qml:</p>
+<pre class="cpp" translate="no">import QtQuick
+
+<span class="comment">/*!
+  \qmltype TrisController
+  \brief Defines the actions that can be performed on trips.
+
+  Defines all actions that can be perfomed on trips. Anyone wishing to implement those actions \
+  must implement the specific handlers.
+*/</span>
+
+<span class="type">Item</span> {
+    <span class="name">id</span>: <span class="name">tripsController</span>
+    <span class="comment">/*!
+      \qmlsignal TripsController::createTrip(var newTrip)
+      Use this signal for notifications about new trips being created.
+
+      \a newTrip contains the details of the new trip
+    */</span>
+    signal <span class="type">createTrip</span>(var newTrip)
+    <span class="comment">/*!
+      \qmlsignal TripsController::deleteTrip(int tripId)
+      Use this signal for notifications about removal of an existing trip.
+
+      \a tripId specifies the trip to be deleted.
+    */</span>
+    signal <span class="type">deleteTrip</span>(int tripId)
+    <span class="comment">/*!
+      \qmlsignal TripsController::editTrip(var existingTrip)
+      Use this signal for notifications about changing the contents of a trip
+
+      \a existingTrip contains the complete trip data, updated
+    */</span>
+    signal <span class="type">editTrip</span>(var existingTrip)
+    <span class="comment">/*!
+      \qmlsignal TripsController::fetchTripData(int tripId)
+      Use this signal to request a fresh reload of the events for the trip identified by \a tripId
+    */</span>
+    signal <span class="type">fetchTripData</span>(int tripId)
+    <span class="comment">/*!
+      \qmlsignal TripsController::reloadTrips()
+      Use this signal to request a fresh reload of the trip data.
+    */</span>
+    signal <span class="type">reloadTrips</span>()
+
+    <span class="keyword">function </span><span class="name">_createTrip</span>(title, startDate, endDate) {
+        var newTrip = {
+            title: <span class="name">title</span>,
+            start: <span class="name">startDate</span>,
+            end: <span class="name">endDate</span>
+        }
+        <span class="name">createTrip</span>(<span class="name">newTrip</span>)
+    }
+}</pre>
+<p>As you cann see, besides the essential functionality we have two more defined:</p>
+<pre class="cpp" translate="no">signal fetchTripData(<span class="type">int</span> tripId)</pre>
+<p>and</p>
+<pre class="cpp" translate="no">signal reloadTrips()</pre>
+<p>This is functionality that we realized is needed later, so we extended the initial file. This the approach to take when new functionality is added</p>
+<p>In addition to signals defining functionality, a utility function was added for a cleaner overall code:</p>
+<pre class="cpp" translate="no">    <span class="keyword">function </span><span class="name">_createTrip</span>(title, startDate, endDate) {
+        var newTrip = {
+            title: <span class="name">title</span>,
+            start: <span class="name">startDate</span>,
+            end: <span class="name">endDate</span>
+        }
+        <span class="name">createTrip</span>(<span class="name">newTrip</span>)
+    }
+}</pre>
+<p><a href="qml-eventscontroller.html" translate="no">EventsController</a>.qml has a similar structure.</p>
+<h3 id="creating-the-model">Creating the model</h3>
+<p>The model of the application is implemented in the PROJECT_ROOT/qml/model/<a href="qml-tripmodel.html" translate="no">TripModel</a>.qml.</p>
+<p>We define the required properties, a few helper functions, then we implement the event handlers for the controllers</p>
+<pre class="qml" translate="no"><span class="type">Connections</span> {
+    <span class="name">id</span>: <span class="name">tripsControllerConnections</span>
+    <span class="name">target</span>: <span class="name">dispatcher</span>
+
+    <span class="name">onCreateTrip</span>: <span class="keyword"></span>newTrip =&gt; {
+        <span class="name">newTrip</span>.<span class="name">tripId</span> <span class="operator">=</span> <span class="name">_data</span>.<span class="name">nextId</span>
+        _data.nextId++
+        <span class="name">_data</span>.<span class="name">trips</span>.<span class="name">push</span>(<span class="name">newTrip</span>)
+        <span class="name">sortTrips</span>()
+        <span class="name">tripsChanged</span>()
+    }
+    <span class="name">onDeleteTrip</span>: <span class="keyword"></span>tripId =&gt; {
+            <span class="name">_data</span>.<span class="name">removeTrip</span>(<span class="name">tripId</span>)
+            <span class="name">_data</span>.<span class="name">removeTripEvents</span>(<span class="name">tripId</span>)
+            <span class="name">updateSelectedTripEvents</span>(<span class="name">selectedTripId</span>)
+            <span class="name">saveTrips</span>()
+            <span class="name">saveEvents</span>()
+            <span class="name">tripsChanged</span>()
+    }
+    <span class="name">onEditTrip</span>: <span class="keyword"></span>existingTrip =&gt; {
+        var existingIndex = <span class="name">_data</span>.<span class="name">getTripIndex</span>(<span class="name">existingTrip</span>.<span class="name">tripId</span>)
+        <span class="keyword">if</span> (<span class="name">existingIndex</span> <span class="operator">&gt;=</span> <span class="number">0</span>) {
+            <span class="name">_data</span>.<span class="name">trips</span>[<span class="name">existingIndex</span>].<span class="name">title</span> <span class="operator">=</span> <span class="name">existingTrip</span>.<span class="name">title</span>
+            <span class="name">_data</span>.<span class="name">trips</span>[<span class="name">existingIndex</span>].<span class="name">start</span> <span class="operator">=</span> <span class="name">existingTrip</span>.<span class="name">start</span>
+            <span class="name">_data</span>.<span class="name">trips</span>[<span class="name">existingIndex</span>].<span class="name">end</span> <span class="operator">=</span> <span class="name">existingTrip</span>.<span class="name">end</span>
+            <span class="name">sortTrips</span>()
+            <span class="name">saveEvents</span>()
+            <span class="name">tripsChanged</span>()
+            <span class="name">updateSelectedTripEvents</span>(<span class="name">existingTrip</span>.<span class="name">tripId</span>)
+        }
+    }
+    <span class="name">onFetchTripData</span>: <span class="keyword"></span>tripId =&gt; {
+        <span class="name">updateSelectedTripEvents</span>(<span class="name">tripId</span>)
+    }
+    <span class="name">onReloadTrips</span>: {
+        var storedTrips = <span class="name">storage</span>.<span class="name">getValue</span>(<span class="string">&quot;trips&quot;</span>)
+        var nextTripIndex = <span class="name">storage</span>.<span class="name">getValue</span>(<span class="string">&quot;nextTripIndex&quot;</span>)
+        <span class="keyword">if</span> (<span class="name">storedTrips</span>) {
+            <span class="name">_data</span>.<span class="name">trips</span> <span class="operator">=</span> <span class="name">storedTrips</span>
+        }
+        <span class="name">_data</span>.<span class="name">nextId</span> <span class="operator">=</span> <span class="name">nextTripIndex</span> ? <span class="name">nextTripIndex</span> : <span class="name">_data</span>.<span class="name">trips</span>.<span class="name">length</span>
+        <span class="name">sortTrips</span>()
+        <span class="name">tripsChanged</span>()
+    }
+}
+
+<span class="type">Connections</span> {
+    <span class="name">id</span>: <span class="name">eventsControllerConnections</span>
+    <span class="name">target</span>: <span class="name">eventsDispatcher</span>
+
+    <span class="name">onCreateEvent</span>: <span class="keyword"></span>newEvent =&gt; {
+        <span class="name">newEvent</span>.<span class="name">eventId</span> <span class="operator">=</span> <span class="name">_data</span>.<span class="name">nextEventId</span>
+        _data.nextEventId++
+        <span class="name">_data</span>.<span class="name">events</span>.<span class="name">push</span>(<span class="name">newEvent</span>)
+        <span class="keyword">if</span> (<span class="name">newEvent</span>.<span class="name">tripId</span> <span class="operator">===</span> <span class="name">selectedTripId</span>) {
+            <span class="name">updateSelectedTripEvents</span>(<span class="name">selectedTripId</span>)
+        }
+        <span class="name">updateTripAfterEventChange</span>(<span class="name">newEvent</span>)
+        <span class="name">saveTrips</span>()
+        <span class="name">saveEvents</span>()
+        <span class="name">tripsChanged</span>()
+    }
+
+    <span class="name">onDeleteEvent</span>: <span class="keyword"></span>eventId =&gt; {
+        <span class="name">_data</span>.<span class="name">removeEvent</span>(<span class="name">eventId</span>)
+        <span class="name">updateSelectedTripEvents</span>(<span class="name">selectedTripId</span>)
+        <span class="name">saveEvents</span>()
+    }
+    <span class="name">onEditEvent</span>: <span class="keyword"></span>existingEvent =&gt; {
+        var existingIndex = <span class="name">_data</span>.<span class="name">getEventIndex</span>(<span class="name">existingEvent</span>.<span class="name">eventId</span>)
+        <span class="keyword">if</span> (<span class="name">existingIndex</span> <span class="operator">&gt;=</span> <span class="number">0</span>) {
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">type</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">type</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">startDate</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">startDate</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">endDate</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">endDate</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">startLocation</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">startLocation</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">endLocation</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">endLocation</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">status</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">status</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">cost</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">cost</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">costStatus</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">costStatus</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">operator</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">operator</span>
+            <span class="name">_data</span>.<span class="name">events</span>[<span class="name">existingIndex</span>].<span class="name">comments</span> <span class="operator">=</span> <span class="name">existingEvent</span>.<span class="name">comments</span>
+            <span class="name">updateSelectedTripEvents</span>(<span class="name">selectedTripId</span>)
+            <span class="name">updateTripAfterEventChange</span>(<span class="name">existingEvent</span>)
+            <span class="name">saveEvents</span>()
+            <span class="name">saveTrips</span>()
+            <span class="name">tripsChanged</span>()
+        }
+    }
+    <span class="name">onReloadEvents</span>: {
+        var storedEvents = <span class="name">storage</span>.<span class="name">getValue</span>(<span class="string">&quot;events&quot;</span>)
+        var nextEventIndex = <span class="name">storage</span>.<span class="name">getValue</span>(<span class="string">&quot;nextEventIndex&quot;</span>)
+        <span class="keyword">if</span> (<span class="name">storedEvents</span>) {
+            <span class="name">_data</span>.<span class="name">events</span> <span class="operator">=</span> <span class="name">storedEvents</span>
+        }
+        <span class="name">_data</span>.<span class="name">nextEventId</span> <span class="operator">=</span> <span class="name">nextEventIndex</span> ? <span class="name">nextEventIndex</span> : <span class="name">_data</span>.<span class="name">events</span>.<span class="name">length</span>
+        <span class="name">updateSelectedTripEvents</span>(<span class="name">selectedTripId</span>)
+    }
+}</pre>
+<p>You can see that here we are implementing allcontrollers signal handlers. Special attention must be paid to ensure that:</p>
+<ul>
+<li>Trips are kept in chornological order</li>
+<li>whenever an event is added or editted, we ensure that the trip's start and end date are updated accordingly</li>
+<li>we expose the right events based on the selected trip, in chronological order</li>
+</ul>
+<h3 id="storage">Storage</h3>
+<p>At this point we are considering only local storage for the data. This is handled by a <a href="https://felgo.com/doc/felgo-storage/" translate="no">Storage</a> instance, added in the <a href="qml-tripmodel.html" translate="no">TripModel</a>. We have named our database, so we don't interract with other storage databases:</p>
+<pre class="qml" translate="no"><span class="type">Storage</span> {
+    <span class="name">id</span>: <span class="name">storage</span>
+    <span class="name">databaseName</span>: <span class="string">&quot;traveltimelines&quot;</span>
+}</pre>
+<p>You can see that accessing the storage is easy. For writing we created two helper functions:</p>
+<pre class="qml" translate="no"><span class="comment">/*!
+  \qmlmethod void TripModel::saveTrips()
+
+  Saves the model's trips into loacal storage
+*/</span>
+<span class="keyword">function </span><span class="name">saveTrips</span>() {
+    <span class="name">storage</span>.<span class="name">setValue</span>(<span class="string">&quot;trips&quot;</span>, <span class="name">_data</span>.<span class="name">trips</span>)
+    <span class="name">storage</span>.<span class="name">setValue</span>(<span class="string">&quot;nextTripIndex&quot;</span>, <span class="name">_data</span>.<span class="name">nextId</span>)
+}
+<span class="comment">/*!
+  \qmlmethod void TripModel::saveEvents()
+
+  Saves the model's trips into loacal storage
+*/</span>
+<span class="keyword">function </span><span class="name">saveEvents</span>() {
+    <span class="name">storage</span>.<span class="name">setValue</span>(<span class="string">&quot;events&quot;</span>, <span class="name">_data</span>.<span class="name">events</span>)
+    <span class="name">storage</span>.<span class="name">setValue</span>(<span class="string">&quot;nextEventIndex&quot;</span>, <span class="name">_data</span>.<span class="name">nextEventId</span>)
+}</pre>
+<h3 id="pages">Pages</h3>
+<p>There are two types of pages we have defined in this app. Overview pages and editing pages.</p>
+<h4 id="overview-pages">Overview pages</h4>
+<p>Overview pages are pages that do not allow for editing, but present the de details of either a trip or a trip event and allow adding new trips or trip events, respectively. The two overview pages are PROJECT_ROOT/qml/pages/<a href="qml-tripsoverviewpage.html" translate="no">TripsOverviewPage</a>.qml and <a href="qml-eventsoverviewpage.html" translate="no">EventsOverviewPage</a>.qml. Both have a similar structure, so we will exemplify with <a href="qml-tripsoverviewpage.html" translate="no">TripsOverviewPage</a></p>
+<p>The page needs a title, so we set it:</p>
+<pre class="cpp" translate="no">    <span class="name">title</span>: <span class="name">qsTr</span>(<span class="string">&quot;My Trips&quot;</span>)</pre>
+<p>Then we configure the navigation bar:</p>
+<pre class="qml" translate="no"><span class="name">rightBarItem</span>: <span class="name">NavigationBarRow</span> {
+    <span class="type">IconButtonBarItem</span> {
+        <span class="name">iconType</span>: <span class="name">IconType</span>.<span class="name">plus</span>
+        <span class="name">showItem</span>: <span class="name">showItemAlways</span>
+        <span class="name">color</span>: <span class="string">&quot;white&quot;</span>
+        <span class="name">onClicked</span>: {
+            <span class="name">thisPage</span>.<span class="name">navigationStack</span>.<span class="name">popAllExceptFirstAndPush</span>(<span class="name">tripDetailsPage</span>, {state: <span class="string">&quot;addNew&quot;</span>, trip: <span class="number">null</span>})
+        }
+    }
+}</pre>
+<p>This creates a small &quot;+&quot; button which we'll use to add new trips. As you can see, we navigate to a new page that will handle the adding of a new trip</p>
+<p>Next is creating the model with the trips to be displayed:</p>
+<pre class="qml" translate="no"><span class="type">JsonListModel</span> {
+    <span class="name">id</span>: <span class="name">myTrips</span>
+    <span class="name">source</span>: <span class="name">thisPage</span>.<span class="name">myTrips</span>
+    <span class="name">keyField</span>: <span class="string">&quot;tripId&quot;</span>
+    <span class="name">fields</span>: [<span class="string">&quot;tripId&quot;</span>, <span class="string">&quot;title&quot;</span>, <span class="string">&quot;start&quot;</span>, <span class="string">&quot;end&quot;</span>]
+}</pre>
+<p>Here are exposing the trip objects as a JSON objects, and defines which fields will be used</p>
+<p>Then we are displaying the list of trips using an <a href="https://felgo.com/doc/felgo-applistview/" translate="no">AppListView</a> with <a href="qml-tripoverview.html" translate="no">TripOverview</a> delegates.</p>
+<pre class="qml" translate="no"><span class="type">AppListView</span> {
+    <span class="name">id</span>: <span class="name">tripsView</span>
+    <span class="name">anchors</span>.fill: <span class="name">parent</span>
+    <span class="name">model</span>: <span class="name">myTrips</span>
+    <span class="name">spacing</span>: <span class="name">dp</span>(<span class="number">10</span>)
+    <span class="name">delegate</span>: <span class="name">TripOverview</span> {
+        <span class="name">id</span>: <span class="name">tripDelegate</span>
+        <span class="name">width</span>: <span class="name">tripsView</span>.<span class="name">width</span>
+        <span class="name">height</span>: <span class="name">childrenRect</span>.<span class="name">height</span>
+        <span class="name">onClicked</span>: {
+            var trip = {
+                tripId: <span class="name">tripDelegate</span>.<span class="name">tripId</span>,
+                title: <span class="name">tripDelegate</span>.<span class="name">title</span>,
+                start: <span class="name">tripDelegate</span>.<span class="name">start</span>,
+                end: <span class="name">tripDelegate</span>.<span class="name">end</span>
+            }
+            <span class="name">thisPage</span>.<span class="name">navigationStack</span>.<span class="name">popAllExceptFirstAndPush</span>(<span class="name">tripDetailsPage</span>, {state: <span class="string">&quot;editExisting&quot;</span>, trip: <span class="name">trip</span>})
+        }
+        <span class="name">onDeleteRequested</span>: {
+            <span class="name">dispatcher</span>.<span class="name">deleteTrip</span>(<span class="name">tripId</span>)
+        }
+    }
+}</pre>
+<p>We also add the signal handlers for editing a trip or deleting one.</p>
+<h4 id="editing-pages">Editing pages</h4>
+<p>Editing pages are pages that allow editing the details of trips and trip events. The two editin pages are PROJECT_ROOT/qml/pages/<a href="qml-addtrippage.html" translate="no">AddTripPage</a>.qml and PROJECT_ROOT/qml/pages/<a href="qml-editeventpage.html" translate="no">EditEventPage</a>.qml. They too have similar structure, so we will be discussing over <a href="qml-addtrippage.html" translate="no">AddTripPage</a> only.</p>
+<p>The editing page is used both for adding new trips and editing existing trips. Because of this, there are slight changes in the some areas of the page: title, button texts or values displayed. To be able to do this we used QML states:</p>
+<pre class="qml" translate="no"><span class="name">states</span>: [
+    <span class="type">State</span> {
+        <span class="name">name</span>: <span class="string">&quot;addNew&quot;</span>
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">saveTripBtn</span>
+            <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;Create trip&quot;</span>)
+            <span class="name">enabled</span>: <span class="name">tripTitle</span>.<span class="name">text</span>.<span class="name">length</span>
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">addEventsBtn</span>
+            <span class="name">visible</span>: <span class="number">false</span>
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">tripTitle</span>
+            <span class="name">text</span>: <span class="string">&quot;&quot;</span>
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">startDate</span>
+            <span class="name">selectedDate</span>: new <span class="name">Date</span>()
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">endDate</span>
+            <span class="name">selectedDate</span>: new <span class="name">Date</span>()
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">thisPage</span>
+            <span class="name">title</span>: <span class="name">qsTr</span>(<span class="string">&quot;Add trip&quot;</span>)
+        }
+    },
+    <span class="type">State</span> {
+        <span class="name">name</span>: <span class="string">&quot;editExisting&quot;</span>
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">saveTripBtn</span>
+            <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;Save trip&quot;</span>)
+            <span class="name">enabled</span>: <span class="name">trip</span> <span class="operator">&amp;&amp;</span> (<span class="name">trip</span>.<span class="name">title</span> <span class="operator">!==</span> <span class="name">tripTitle</span>.<span class="name">text</span> <span class="operator">||</span>
+                              <span class="name">trip</span>.<span class="name">start</span>.<span class="name">getTime</span>() <span class="operator">!==</span> <span class="name">startDate</span>.<span class="name">selectedDate</span>.<span class="name">getTime</span>() <span class="operator">||</span>
+                              <span class="name">trip</span>.<span class="name">end</span>.<span class="name">getTime</span>() <span class="operator">!==</span> <span class="name">endDate</span>.<span class="name">selectedDate</span>.<span class="name">getTime</span>())
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">addEventsBtn</span>
+            <span class="name">visible</span>: <span class="number">true</span>
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">tripTitle</span>
+            <span class="name">text</span>: <span class="name">trip</span> ? <span class="name">trip</span>.<span class="name">title</span> : <span class="string">&quot;&quot;</span>
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">startDate</span>
+            <span class="name">selectedDate</span>: <span class="name">trip</span> ? <span class="name">trip</span>.<span class="name">start</span> : new <span class="name">Date</span>()
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">endDate</span>
+            <span class="name">selectedDate</span>: <span class="name">trip</span> ? <span class="name">trip</span>.<span class="name">end</span> : new <span class="name">Date</span>()
+        }
+        <span class="type">PropertyChanges</span> {
+            <span class="name">target</span>: <span class="name">thisPage</span>
+            <span class="name">title</span>: <span class="name">qsTr</span>(<span class="string">&quot;Update trip&quot;</span>)
+        }
+    }
+]</pre>
+<p>This code defines the two states this page can be used in, and what is being change in each of these states.</p>
+<p>Then we add the content of the page. To ensure we can scroll, we're using an <a href="https://felgo.com/doc/felgo-appflickable/" translate="no">AppFlickable</a>:</p>
+<pre class="qml" translate="no"><span class="type">AppFlickable</span>{
+    <span class="name">anchors</span>.fill: <span class="name">parent</span>
+    <span class="name">contentHeight</span>: <span class="name">pageContent</span>.<span class="name">height</span>
+
+    <span class="type">Column</span> {
+        <span class="name">id</span>: <span class="name">pageContent</span>
+        <span class="name">width</span>: <span class="name">thisPage</span>.<span class="name">width</span>
+        <span class="name">spacing</span>: <span class="name">dp</span>(<span class="number">10</span>)
+        <span class="type">AppTextField</span> {
+            <span class="name">id</span>: <span class="name">tripTitle</span>
+            <span class="name">width</span>: <span class="name">parent</span>.<span class="name">width</span>
+            <span class="name">padding</span>: <span class="name">dp</span>(<span class="number">10</span>)
+            <span class="name">placeholderText</span>: <span class="name">qsTr</span>(<span class="string">&quot;Enter your trip name&quot;</span>)
+
+        }
+        <span class="type"><a href="qml-datefield.html" translate="no">DateField</a></span> {
+            <span class="name">id</span>: <span class="name">startDate</span>
+            <span class="name">width</span>: <span class="name">parent</span>.<span class="name">width</span>
+            <span class="name">allowEditing</span>: <span class="number">true</span>
+            <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Start date: &quot;</span>)
+            <span class="name">pickerDialog</span>: <span class="name">datePicker</span>
+            <span class="name">state</span>: <span class="string">&quot;showDate&quot;</span>
+        }
+        <span class="type"><a href="qml-datefield.html" translate="no">DateField</a></span> {
+            <span class="name">id</span>: <span class="name">endDate</span>
+            <span class="name">width</span>: <span class="name">parent</span>.<span class="name">width</span>
+            <span class="name">allowEditing</span>: <span class="number">true</span>
+            <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;End date: &quot;</span>)
+            <span class="name">pickerDialog</span>: <span class="name">datePicker</span>
+            <span class="name">state</span>: <span class="string">&quot;showDate&quot;</span>
+        }
+
+        <span class="type">RowLayout</span>{
+            <span class="name">spacing</span>: <span class="name">dp</span>(<span class="number">10</span>)
+            <span class="name">width</span>: <span class="name">thisPage</span>.<span class="name">width</span>
+
+            <span class="type">AppButton</span> {
+                <span class="name">id</span>: <span class="name">addEventsBtn</span>
+                <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;Edit events&quot;</span>)
+                <span class="name">Layout</span>.alignment: <span class="name">Qt</span>.<span class="name">AlignCenter</span>
+                <span class="name">onClicked</span>: {
+                    <span class="name">dispatcher</span>.<span class="name">fetchTripData</span>(<span class="name">thisPage</span>.<span class="name">trip</span> ? <span class="name">thisPage</span>.<span class="name">trip</span>.<span class="name">tripId</span> : -<span class="number">1</span>)
+                    <span class="name">thisPage</span>.<span class="name">navigationStack</span>.<span class="name">push</span>(<span class="name">tripEventsPage</span>, {selectedTripName: <span class="name">thisPage</span>.<span class="name">trip</span> ? <span class="name">thisPage</span>.<span class="name">trip</span>.<span class="name">title</span> : <span class="string">&quot;&quot;</span>})
+                }
+            }
+            <span class="type">AppButton</span> {
+                <span class="name">id</span>: <span class="name">saveTripBtn</span>
+                <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;Create trip&quot;</span>)
+                <span class="name">Layout</span>.alignment: <span class="name">Qt</span>.<span class="name">AlignCenter</span>
+                <span class="name">enabled</span>: <span class="name">tripTitle</span>.<span class="name">text</span>.<span class="name">length</span>
+                <span class="name">onClicked</span>: {
+                    <span class="keyword">if</span> (<span class="name">thisPage</span>.<span class="name">state</span> <span class="operator">===</span> <span class="string">&quot;addNew&quot;</span>) {
+                        <span class="name">dispatcher</span>.<span class="name">_createTrip</span>(<span class="name">tripTitle</span>.<span class="name">text</span>, <span class="name">startDate</span>.<span class="name">selectedDate</span>, <span class="name">endDate</span>.<span class="name">selectedDate</span>)
+                        <span class="name">thisPage</span>.<span class="name">navigationStack</span>.<span class="name">popAllExceptFirst</span>()
+                    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="name">thisPage</span>.<span class="name">state</span> <span class="operator">===</span> <span class="string">&quot;editExisting&quot;</span>) {
+                        <span class="name">trip</span>.<span class="name">title</span> <span class="operator">=</span> <span class="name">tripTitle</span>.<span class="name">text</span>
+                        <span class="name">trip</span>.<span class="name">start</span> <span class="operator">=</span> <span class="name">startDate</span>.<span class="name">selectedDate</span>
+                        <span class="name">trip</span>.<span class="name">end</span> <span class="operator">=</span> <span class="name">endDate</span>.<span class="name">selectedDate</span>
+                        <span class="name">tripChanged</span>()
+                        <span class="name">dispatcher</span>.<span class="name">editTrip</span>(<span class="name">trip</span>)
+                    }
+                }
+            }
+        }
+    }</pre>
+<p>In the flickable we add the fields we can edit for the trip: the title, start date and end date</p>
+<p>At the button of page we add 2 buttons: one for adding events to the trip, whihc will open the <a href="qml-eventsoverviewpage.html" translate="no">EventsOverviewPage</a> with the events for this trip and one to save the current trip data and jump back to the <a href="qml-tripsoverviewpage.html" translate="no">TripsOverviewPage</a>.</p>
+<p>To reuse QML code, several reusable components were created and instantiated by the pages.</p>
+<h4 id="datefield">DateField</h4>
+<pre class="cpp" translate="no">import QtQuick
+import Felgo
+import QtQuick.Layouts
+
+import &quot;../dialogs&quot;
+
+<span class="comment">/*!
+  \qmltype DateField
+  \brief A row showing a date.
+
+  This is an utility component to be used where we need to show a date or time.
+
+  The component displays a label and a text field showing the date or time. It
+  opens a \l DatePickerDialog when the user tries to edit the date.
+*/</span>
+
+<span class="type">TextFieldRow</span> {
+    <span class="name">id</span>: <span class="name">dateField</span>
+    <span class="comment">/*!
+      \qmlproperty date DateField::selectedDate
+
+      The displayed date
+    */</span>
+    property <span class="type">date</span> <span class="name">selectedDate</span>: new <span class="name">Date</span>()
+    <span class="comment">/*!
+      \qmlproperty bool DateField::allowEditing
+
+      Set to true if the used can edit the date, false otherwise
+    */</span>
+    property <span class="type">bool</span> <span class="name">allowEditing</span>: <span class="number">false</span>
+
+    <span class="comment">/*!
+      \qmlproperty DatePickerDialog DateField::pickerDialog
+
+      The dialog that will be used to input the new date.
+    */</span>
+    property <span class="type"><a href="qml-datepickerdialog.html" translate="no">DatePickerDialog</a></span> <span class="name">pickerDialog</span>: <span class="number">null</span>
+
+    <span class="comment">/*!
+      \qmlproperty bool DateField::isEditing
+
+      Set to true if the pickerDialog was opened by this instance
+    */</span>
+    property <span class="type">bool</span> <span class="name">isEditing</span>: <span class="number">false</span>
+
+    <span class="name">states</span>: [
+        <span class="type">State</span> {
+            <span class="name">name</span>: <span class="string">&quot;showDate&quot;</span>
+            <span class="type">PropertyChanges</span> {
+                <span class="name">target</span>: <span class="name">dateField</span>
+                <span class="name">value</span>: <span class="name">selectedDate</span>.<span class="name">toDateString</span>()
+            }
+        },
+        <span class="type">State</span> {
+            <span class="name">name</span>: <span class="string">&quot;showTime&quot;</span>
+            <span class="type">PropertyChanges</span> {
+                <span class="name">target</span>: <span class="name">dateField</span>
+                <span class="name">value</span>: <span class="name">selectedDate</span>.<span class="name">toTimeString</span>()
+            }
+        }
+
+    ]
+    <span class="name">state</span>: <span class="string">&quot;showDate&quot;</span>
+
+    <span class="name">value</span>: <span class="name">selectedDate</span>.<span class="name">toDateString</span>()
+    <span class="name">enabled</span>: <span class="name">dateField</span>.<span class="name">allowEditing</span>
+    <span class="name">clickEnabled</span>: <span class="number">true</span>
+    <span class="name">onClicked</span>: {
+        <span class="name">isEditing</span> <span class="operator">=</span> <span class="number">true</span>
+        <span class="name">pickerDialog</span>.<span class="name">setDate</span>(<span class="name">dateField</span>.<span class="name">selectedDate</span>)
+        <span class="name">pickerDialog</span>.<span class="name">open</span>()
+    }
+
+    <span class="type">Connections</span> {
+        <span class="name">target</span>: <span class="name">pickerDialog</span>
+        <span class="name">onAccepted</span>: {
+            <span class="keyword">if</span> (<span class="name">dateField</span>.<span class="name">isEditing</span>) {
+                <span class="name">dateField</span>.<span class="name">isEditing</span> <span class="operator">=</span> <span class="number">false</span>
+                <span class="name">dateField</span>.<span class="name">selectedDate</span> <span class="operator">=</span> <span class="name">pickerDialog</span>.<span class="name">selectedDate</span>
+                <span class="name">pickerDialog</span>.<span class="name">close</span>()
+            }
+        }
+    }
+}</pre>
+<p>The <a href="qml-datefield.html" translate="no">DateField</a> uses a <a href="https://felgo.com/doc/felgo-textfieldrow/" translate="no">TextFieldRow</a> to show a label and the date representation. When the user wants to edit the date a dialog is opened which allows them to select the date or time. Whether the <a href="qml-datefield.html" translate="no">DateField</a> is used for showing and dates or time is control via component states.</p>
+<p>It is important to notice that the dialog is set as a property and multiple fields could be sharing the same dialog instance. To avoid updating all fields when using the dialog, special care must be taken to update only if the field is the one that opened the dialog. This was done as follows:</p>
+<pre class="qml" translate="no"><span class="name">onClicked</span>: {
+    <span class="name">isEditing</span> <span class="operator">=</span> <span class="number">true</span>
+    <span class="name">pickerDialog</span>.<span class="name">setDate</span>(<span class="name">dateField</span>.<span class="name">selectedDate</span>)
+    <span class="name">pickerDialog</span>.<span class="name">open</span>()
+}
+
+<span class="type">Connections</span> {
+    <span class="name">target</span>: <span class="name">pickerDialog</span>
+    <span class="name">onAccepted</span>: {
+        <span class="keyword">if</span> (<span class="name">dateField</span>.<span class="name">isEditing</span>) {
+            <span class="name">dateField</span>.<span class="name">isEditing</span> <span class="operator">=</span> <span class="number">false</span>
+            <span class="name">dateField</span>.<span class="name">selectedDate</span> <span class="operator">=</span> <span class="name">pickerDialog</span>.<span class="name">selectedDate</span>
+            <span class="name">pickerDialog</span>.<span class="name">close</span>()
+        }
+    }
+}</pre>
+<h4 id="tripoverview-and-eventoverview">TripOverview and EventOverview</h4>
+<p>These two coponents are again very similar in structure. They are design as delegates and have all model data available as properties.</p>
+<p>They are using QML states to slightly alter the how the overview is displayed in various situations. For example the <a href="qml-eventoverview.html" translate="no">EventOverview</a> updates it's text based on what event type is being displayed by it:</p>
+<pre class="qml" translate="no"><span class="type">State</span> {
+    <span class="name">name</span>: <span class="string">&quot;plane&quot;</span>
+    <span class="type">PropertyChanges</span> {
+        <span class="name">target</span>: <span class="name">header</span>
+        <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;Fly to %1&quot;</span>).<span class="name">arg</span>(<span class="name">endLocation</span>)
+    }
+    <span class="type">PropertyChanges</span> {
+        <span class="name">target</span>: <span class="name">departingOn</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Take off on:&quot;</span>)
+    }
+    <span class="type">PropertyChanges</span> {
+        <span class="name">target</span>: <span class="name">departingAt</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Take off at:&quot;</span>)
+    }
+    <span class="type">PropertyChanges</span> {
+        <span class="name">target</span>: <span class="name">departingFrom</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Departure airport:&quot;</span>)
+    }
+    <span class="type">PropertyChanges</span> {
+        <span class="name">target</span>: <span class="name">arrivingOn</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Landing on:&quot;</span>)
+    }
+    <span class="type">PropertyChanges</span> {
+        <span class="name">target</span>: <span class="name">arrivingAt</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Landing at:&quot;</span>)
+    }
+    <span class="type">PropertyChanges</span> {
+        <span class="name">target</span>: <span class="name">arrivingIn</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Arrival ariport:&quot;</span>)
+    }
+},</pre>
+<p>And we use the event type to select the state:</p>
+<pre class="cpp" translate="no">    <span class="name">state</span>: <span class="name">eventCard</span>.<span class="name">type</span></pre>
+<p>Next we display the data fields:</p>
+<pre class="qml" translate="no"><span class="type">Column</span> {
+    <span class="name">id</span>: <span class="name">details</span>
+    <span class="name">width</span>: <span class="name">parent</span>.<span class="name">width</span>
+    <span class="type">AppText</span> {
+        <span class="name">id</span>: <span class="name">header</span>
+        <span class="name">padding</span>: <span class="name">dp</span>(<span class="number">5</span>)
+        <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;%1 to %2&quot;</span>).<span class="name">arg</span>(<span class="name">type</span>).<span class="name">arg</span>(<span class="name">endLocation</span>)
+        <span class="name">font</span>.bold: <span class="number">true</span>
+    }
+    <span class="type"><a href="qml-datefield.html" translate="no">DateField</a></span> {
+        <span class="name">id</span>: <span class="name">departingOn</span>
+        <span class="name">selectedDate</span>: <span class="name">startDate</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Departing on: &quot;</span>)
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">state</span>: <span class="string">&quot;showDate&quot;</span>
+    }
+    <span class="type">TextFieldRow</span> {
+        <span class="name">id</span>: <span class="name">departingAt</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Departing at:&quot;</span>)
+        <span class="name">enabled</span>: <span class="number">false</span>
+        <span class="name">value</span>: <span class="name">startDate</span>.<span class="name">toTimeString</span>()
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+    }
+    <span class="type">TextFieldRow</span> {
+        <span class="name">id</span>: <span class="name">departingFrom</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Departing from:&quot;</span>)
+        <span class="name">enabled</span>: <span class="number">false</span>
+        <span class="name">value</span>: <span class="name">startLocation</span>
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+    }
+    <span class="type"><a href="qml-datefield.html" translate="no">DateField</a></span> {
+        <span class="name">id</span>: <span class="name">arrivingOn</span>
+        <span class="name">selectedDate</span>: <span class="name">endDate</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Ariving on: &quot;</span>)
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">state</span>: <span class="string">&quot;showDate&quot;</span>
+    }
+    <span class="type">TextFieldRow</span> {
+        <span class="name">id</span>: <span class="name">arrivingAt</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Arriving at&quot;</span>)
+        <span class="name">enabled</span>: <span class="number">false</span>
+        <span class="name">value</span>: <span class="name">endDate</span>.<span class="name">toTimeString</span>()
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+    }
+    <span class="type">TextFieldRow</span> {
+        <span class="name">id</span>: <span class="name">arrivingIn</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Arriving in:&quot;</span>)
+        <span class="name">enabled</span>: <span class="number">false</span>
+        <span class="name">value</span>: <span class="name">endLocation</span>
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+    }
+    <span class="type">TextFieldRow</span> {
+        <span class="name">id</span>: <span class="name">eventOperator</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Operator:&quot;</span>)
+        <span class="name">enabled</span>: <span class="number">false</span>
+        <span class="name">value</span>: <span class="name">operator</span>
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+    }
+    <span class="type">TextFieldRow</span> {
+        <span class="name">id</span>: <span class="name">eventCost</span>
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Cost:&quot;</span>)
+        <span class="name">enabled</span>: <span class="number">false</span>
+        <span class="name">value</span>: <span class="name">qsTr</span>(<span class="string">&quot;%1 %2 (%3)&quot;</span>).<span class="name">arg</span>(<span class="name">cost</span>).<span class="name">arg</span>(<span class="name">currency</span>).<span class="name">arg</span>(<span class="name">costStatus</span>)
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+    }
+    <span class="type">TextFieldRow</span> {
+        <span class="name">label</span>: <span class="name">qsTr</span>(<span class="string">&quot;Comments:&quot;</span>)
+        <span class="name">enabled</span>: <span class="number">false</span>
+        <span class="name">value</span>: <span class="name">comments</span>
+        <span class="name">color</span>: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+        <span class="name">textFieldItem</span>.backgroundColor: <span class="name">eventCard</span>.<span class="name">backgroundColor</span>
+    }
+}</pre>
+<p>It's a basic column of <a href="https://felgo.com/doc/felgo-textfieldrow/" translate="no">TextFieldRows</a>, one row per model property.</p>
+<p>At the bottom of the overviews, we add two buttons:</p>
+<pre class="qml" translate="no"><span class="type">Row</span> {
+    <span class="name">anchors</span>.top: <span class="name">details</span>.<span class="name">bottom</span>
+    <span class="name">anchors</span>.right: <span class="name">details</span>.<span class="name">right</span>
+    <span class="type">IconButton</span> {
+        <span class="name">iconType</span>: <span class="name">IconType</span>.<span class="name">pencil</span>
+        <span class="name">onClicked</span>: {
+            <span class="name">eventCard</span>.<span class="name">clicked</span>()
+        }
+    }
+    <span class="type">IconButton</span> {
+        <span class="name">iconType</span>: <span class="name">IconType</span>.<span class="name">remove</span>
+        <span class="name">onClicked</span>: {
+            <span class="name">eventCard</span>.<span class="name">deleteRequested</span>()
+        }
+    }
+}</pre>
+<p>They trigger notification that the event (or trip, repectively) should be edited or removed. These notifications will be handled by the instantiating components.</p>
+<h3 id="dialogs">Dialogs</h3>
+<p>To help users input details in specific format, sever dialogs were created. They all inherit <a href="https://felgo.com/doc/felgo-dialog/" translate="no">Dialog</a> and are specialized for specific job.</p>
+<p><a href="qml-datepickerdialog.html" translate="no">DatePickerDialog</a> is used to select a date or time.</p>
+<pre class="cpp" translate="no">import QtQuick
+import Felgo
+
+<span class="comment">/*!
+  \qmltype DatePickerDialog
+  \brief Helper dialog for easy date picking.
+
+  Small dialog consisting of a date picker and an accept button
+*/</span>
+
+<span class="type">Dialog</span> {
+    <span class="name">id</span>: <span class="name">picker</span>
+    <span class="comment">/*!
+      \qmlproperty date DatePickerDialog::startDate
+
+      The earliest date that can be selected.
+    */</span>
+    property <span class="type">alias</span> <span class="name">startDate</span>: <span class="name">datePicker</span>.<span class="name">startDate</span>
+    <span class="comment">/*!
+      \qmlproperty date DatePickerDialog::endDate
+
+      The latest date that can be selected
+    */</span>
+    property <span class="type">alias</span> <span class="name">endDate</span>: <span class="name">datePicker</span>.<span class="name">endDate</span>
+    <span class="comment">/*!
+      \qmlproperty date DatePickerDialog::selectedDate
+
+      The currently selected date
+    */</span>
+    property <span class="type">alias</span> <span class="name">selectedDate</span>: <span class="name">datePicker</span>.<span class="name">selectedDate</span>
+
+    <span class="name">states</span>: [
+        <span class="type">State</span> {
+            <span class="name">name</span>: <span class="string">&quot;datePicker&quot;</span>
+            <span class="type">PropertyChanges</span> {
+                <span class="name">target</span>: <span class="name">datePicker</span>
+                <span class="name">datePickerMode</span>: <span class="name">datePicker</span>.<span class="name">dateMode</span>
+            }
+            <span class="type">PropertyChanges</span> {
+                <span class="name">target</span>: <span class="name">picker</span>
+                <span class="name">title</span>: <span class="name">qsTr</span>(<span class="string">&quot;Select date:&quot;</span>)
+            }
+        },
+        <span class="type">State</span> {
+            <span class="name">name</span>: <span class="string">&quot;timePicker&quot;</span>
+            <span class="type">PropertyChanges</span> {
+                <span class="name">target</span>: <span class="name">datePicker</span>
+                <span class="name">datePickerMode</span>: <span class="name">datePicker</span>.<span class="name">timeMode</span>
+            }
+            <span class="type">PropertyChanges</span> {
+                <span class="name">target</span>: <span class="name">picker</span>
+                <span class="name">title</span>: <span class="name">qsTr</span>(<span class="string">&quot;Select time:&quot;</span>)
+            }
+        }
+    ]
+    <span class="name">state</span>: <span class="string">&quot;datePicker&quot;</span>
+
+    <span class="name">title</span>: <span class="name">qsTr</span>(<span class="string">&quot;Select Date&quot;</span>)
+    <span class="name">positiveActionLabel</span>: <span class="name">qsTr</span>(<span class="string">&quot;Done&quot;</span>)
+    <span class="name">negativeAction</span>: <span class="number">false</span>
+    <span class="name">autoSize</span>: <span class="number">true</span>
+
+    <span class="comment">/*!
+      \qmlmethod void DatePickerDialog::setDate(date selectedDate)
+
+      Sets \l selectedDate to \a selectedDate
+    */</span>
+    <span class="keyword">function </span><span class="name">setDate</span>(selectedDate) {
+        <span class="name">datePicker</span>.<span class="name">setDate</span>(<span class="name">selectedDate</span>)
+    }
+
+    <span class="type">DatePicker</span> {
+        <span class="name">id</span>: <span class="name">datePicker</span>
+        <span class="name">datePickerMode</span>: <span class="name">datePicker</span>.<span class="name">dateMode</span>
+    }
+}</pre>
+<p>We are using the QML ststaes system to alter the behavior to be either a date picker or a time picker by changing the title and mode of the <a href="https://felgo.com/doc/felgo-datepicker/" translate="no">DatePicker</a>.</p>
+<p><a href="qml-eventstatuspicker.html" translate="no">EventStatusPicker</a>, <a href="qml-eventtypepicker.html" translate="no">EventTypePicker</a> and <a href="qml-paidstatuspicker.html" translate="no">PaidStatusPIcker</a> are used to select an option from a fixed set of available options. As they all follow the same structure, we will focus on <a href="qml-paidstatuspicker.html" translate="no">PaidStatusPIcker</a></p>
+<pre class="cpp" translate="no">import QtQuick
+import Felgo
+import QtQuick.Controls
+
+<span class="comment">/*!
+  \qmltype PaidStatusPicker
+  \brief Helper dialog for easy trip event paiment status selection.
+
+  Small dialog consisting of a series of exclusive radio buttons and an accept button.
+*/</span>
+
+<span class="type">Dialog</span> {
+    <span class="name">id</span>: <span class="name">picker</span>
+    readonly property <span class="type">var</span> <span class="name">_options</span>: [<span class="name">paidOption</span>, <span class="name">estimatedOption</span>]
+
+    <span class="comment">/*!
+      \qmlproperty string PaidStatusPicker::selectedOption
+
+      The event status selected. It can be either &quot;paid&quot; or &quot;estimated&quot;
+    */</span>
+    readonly property <span class="type">string</span> <span class="name">selectedOption</span>: <span class="name">optionsRadioGroup</span>.<span class="name">checkedButton</span> ? <span class="name">optionsRadioGroup</span>.<span class="name">checkedButton</span>.<span class="name">value</span> : <span class="string">&quot;&quot;</span>
+    <span class="name">title</span>: <span class="name">qsTr</span>(<span class="string">&quot;Choose paid status&quot;</span>)
+    <span class="name">positiveActionLabel</span>: <span class="name">qsTr</span>(<span class="string">&quot;Done&quot;</span>)
+    <span class="name">negativeAction</span>: <span class="number">false</span>
+    <span class="name">autoSize</span>: <span class="number">true</span>
+
+    <span class="comment">/*!
+      \qmlmethod void PaidStatusPicker::setSelection(string option)
+
+      Selects the coresponding radio to \a option. \a option can be either &quot;paid&quot; or &quot;estimated&quot;
+    */</span>
+    <span class="keyword">function </span><span class="name">setSelection</span>(option) {
+        var selection = <span class="name">_options</span>.<span class="name">find</span>((<span class="keyword"></span>btn) =&gt; <span class="keyword"></span><span class="name">btn</span>.<span class="name">value</span> <span class="operator">===</span> <span class="name">option</span>)
+        <span class="name">optionsRadioGroup</span>.<span class="name">checkedButton</span> <span class="operator">=</span> <span class="name">selection</span> ? <span class="name">selection</span> : <span class="name">paidOption</span>
+    }
+
+    <span class="type">Column</span> {
+        <span class="type">ButtonGroup</span> {
+            <span class="name">id</span>: <span class="name">optionsRadioGroup</span>
+            <span class="name">buttons</span>: <span class="name">picker</span>.<span class="name">_options</span>
+        }
+        <span class="type">AppRadio</span> {
+            <span class="name">id</span>: <span class="name">paidOption</span>
+            <span class="name">value</span>: <span class="string">&quot;paid&quot;</span>
+            <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;Paid&quot;</span>)
+            <span class="name">checked</span>: <span class="number">true</span>
+        }
+        <span class="type">AppRadio</span> {
+            <span class="name">id</span>: <span class="name">estimatedOption</span>
+            <span class="name">value</span>: <span class="string">&quot;estimated&quot;</span>
+            <span class="name">text</span>: <span class="name">qsTr</span>(<span class="string">&quot;Estimated&quot;</span>)
+        }
+    }
+}</pre>
+<p>As you can see, the contents of the dialog are a list of <a href="https://felgo.com/doc/felgo-appradio/" translate="no">AppRadios</a>, one for each of the available options. They are assigned to a exclusive ButtonGroup, meaning that only can be selected at a given time, the user option. Just add new radios if you need more options.</p>
+<pre class="cpp" translate="no">    readonly property <span class="type">var</span> <span class="name">_options</span>: [<span class="name">paidOption</span>, <span class="name">estimatedOption</span>]</pre>
+<p>is a helper variable containing the available <a href="https://felgo.com/doc/felgo-appradio/" translate="no">AppRadios</a>. It makes it easier to handle this list in various positions of the code. Don't forget to add the radios here as well if you extend the list of options</p>
+<pre class="cpp" translate="no">    readonly property <span class="type">string</span> <span class="name">selectedOption</span>: <span class="name">optionsRadioGroup</span>.<span class="name">checkedButton</span> ? <span class="name">optionsRadioGroup</span>.<span class="name">checkedButton</span>.<span class="name">value</span> : <span class="string">&quot;&quot;</span></pre>
+<p>is the readonly property that is set when the user selects one of the options</p>
+<p>The following code snippet ensures that we open the dialog with the previous selected option.</p>
+<pre class="qml" translate="no"><span class="keyword">function </span><span class="name">setSelection</span>(option) {
+    var selection = <span class="name">_options</span>.<span class="name">find</span>((<span class="keyword"></span>btn) =&gt; <span class="keyword"></span><span class="name">btn</span>.<span class="name">value</span> <span class="operator">===</span> <span class="name">option</span>)
+    <span class="name">optionsRadioGroup</span>.<span class="name">checkedButton</span> <span class="operator">=</span> <span class="name">selection</span> ? <span class="name">selection</span> : <span class="name">paidOption</span>
+}</pre>
+<h2 id="what-s-next">What's next?</h2>
+<ul>
+<li>Support for multiple currencies</li>
+<li>Extend trip details to include cost, time &amp; distance statistics</li>
+<li>Pick start and end locations via map selection</li>
+<li>online storage</li>
+<li>use it on the next holiday and see what the next features are</li>
+</ul>
+</div>
+<!-- @@@traveltimelines.html -->
+</body>
+</html>

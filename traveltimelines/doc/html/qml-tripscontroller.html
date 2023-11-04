@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- TripsController.qml -->
+  <meta name="description" content="Defines the actions that can be performed on trips.">
+  <title>TripsController QML Type | traveltimelines</title>
+</head>
+<body>
+<li>TripsController</li>
+<div class="sidebar">
+<div class="toc">
+<h3 id="toc">Contents</h3>
+<ul>
+<li class="level1"><a href="#signals">Signals</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title" translate="no">TripsController QML Type</h1>
+<!-- $$$TripsController-brief -->
+<p>Defines the actions that can be performed on trips. <a href="#details">More...</a></p>
+<!-- @@@TripsController -->
+<ul>
+<li><a href="qml-tripscontroller-members.html">List of all members, including inherited members</a></li>
+</ul>
+<h2 id="signals">Signals</h2>
+<ul>
+<li class="fn" translate="no"><b><a href="qml-tripscontroller.html#createTrip-signal" translate="no">createTrip</a></b>(var <i>newTrip</i>)</li>
+<li class="fn" translate="no"><b><a href="qml-tripscontroller.html#deleteTrip-signal" translate="no">deleteTrip</a></b>(int <i>tripId</i>)</li>
+<li class="fn" translate="no"><b><a href="qml-tripscontroller.html#editTrip-signal" translate="no">editTrip</a></b>(var <i>existingTrip</i>)</li>
+<li class="fn" translate="no"><b><a href="qml-tripscontroller.html#fetchTripData-signal" translate="no">fetchTripData</a></b>(int <i>tripId</i>)</li>
+<li class="fn" translate="no"><b><a href="qml-tripscontroller.html#reloadTrips-signal" translate="no">reloadTrips</a></b>()</li>
+</ul>
+<!-- $$$TripsController-description -->
+<h2 id="details">Detailed Description</h2>
+<p>Defines all actions that can be perfomed on trips. Anyone wishing to implement those actions must implement the specific handlers.</p>
+<!-- @@@TripsController -->
+<h2>Signal Documentation</h2>
+<!-- $$$createTrip[overload1]$$$createTripvar -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="createTrip-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">createTrip</span>(<span class="type">var</span> <i>newTrip</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal for notifications about new trips being created.</p>
+<p><i translate="no">newTrip</i> contains the details of the new trip</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onCreateTrip</code>.</p>
+</div></div></div><!-- @@@createTrip -->
+<br/>
+<!-- $$$deleteTrip[overload1]$$$deleteTripint -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="deleteTrip-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">deleteTrip</span>(<span class="type">int</span> <i>tripId</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal for notifications about removal of an existing trip.</p>
+<p><i translate="no">tripId</i> specifies the trip to be deleted.</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onDeleteTrip</code>.</p>
+</div></div></div><!-- @@@deleteTrip -->
+<br/>
+<!-- $$$editTrip[overload1]$$$editTripvar -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="editTrip-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">editTrip</span>(<span class="type">var</span> <i>existingTrip</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal for notifications about changing the contents of a trip</p>
+<p><i translate="no">existingTrip</i> contains the complete trip data, updated</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onEditTrip</code>.</p>
+</div></div></div><!-- @@@editTrip -->
+<br/>
+<!-- $$$fetchTripData[overload1]$$$fetchTripDataint -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="fetchTripData-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">fetchTripData</span>(<span class="type">int</span> <i>tripId</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal to request a fresh reload of the events for the trip identified by <i translate="no">tripId</i></p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onFetchTripData</code>.</p>
+</div></div></div><!-- @@@fetchTripData -->
+<br/>
+<!-- $$$reloadTrips[overload1]$$$reloadTrips -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="reloadTrips-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">reloadTrips</span>()</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal to request a fresh reload of the trip data.</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onReloadTrips</code>.</p>
+</div></div></div><!-- @@@reloadTrips -->
+<br/>
+</body>
+</html>

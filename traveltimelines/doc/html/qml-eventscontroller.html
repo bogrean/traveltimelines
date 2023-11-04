@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- EventsController.qml -->
+  <meta name="description" content="Defines the actions that can be performed on trip events.">
+  <title>EventsController QML Type | traveltimelines</title>
+</head>
+<body>
+<li>EventsController</li>
+<div class="sidebar">
+<div class="toc">
+<h3 id="toc">Contents</h3>
+<ul>
+<li class="level1"><a href="#signals">Signals</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title" translate="no">EventsController QML Type</h1>
+<!-- $$$EventsController-brief -->
+<p>Defines the actions that can be performed on trip events. <a href="#details">More...</a></p>
+<!-- @@@EventsController -->
+<ul>
+<li><a href="qml-eventscontroller-members.html">List of all members, including inherited members</a></li>
+</ul>
+<h2 id="signals">Signals</h2>
+<ul>
+<li class="fn" translate="no"><b><a href="qml-eventscontroller.html#createEvent-signal" translate="no">createEvent</a></b>(var <i>newEvent</i>)</li>
+<li class="fn" translate="no"><b><a href="qml-eventscontroller.html#deleteEvent-signal" translate="no">deleteEvent</a></b>(int <i>eventId</i>)</li>
+<li class="fn" translate="no"><b><a href="qml-eventscontroller.html#editEvent-signal" translate="no">editEvent</a></b>(var <i>existingEvent</i>)</li>
+<li class="fn" translate="no"><b><a href="qml-eventscontroller.html#reloadEvents-signal" translate="no">reloadEvents</a></b>()</li>
+</ul>
+<!-- $$$EventsController-description -->
+<h2 id="details">Detailed Description</h2>
+<p>Defines all actions that can be perfomed on trip events. Anyone wishing to implement those actions must implement the specific handlers.</p>
+<!-- @@@EventsController -->
+<h2>Signal Documentation</h2>
+<!-- $$$createEvent[overload1]$$$createEventvar -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="createEvent-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">createEvent</span>(<span class="type">var</span> <i>newEvent</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal for notifications about new trip events being created.</p>
+<p><i translate="no">newEvent</i> contains the details of the new trip event</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onCreateEvent</code>.</p>
+</div></div></div><!-- @@@createEvent -->
+<br/>
+<!-- $$$deleteEvent[overload1]$$$deleteEventint -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="deleteEvent-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">deleteEvent</span>(<span class="type">int</span> <i>eventId</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal for notifications about removal of an existing event.</p>
+<p><i translate="no">eventId</i> specifies the vent to be deleted.</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onDeleteEvent</code>.</p>
+</div></div></div><!-- @@@deleteEvent -->
+<br/>
+<!-- $$$editEvent[overload1]$$$editEventvar -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="editEvent-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">editEvent</span>(<span class="type">var</span> <i>existingEvent</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal for notifications about changing the contents of a trip event</p>
+<p><i translate="no">existingEvent</i> contains the complete trip event data, updated</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onEditEvent</code>.</p>
+</div></div></div><!-- @@@editEvent -->
+<br/>
+<!-- $$$reloadEvents[overload1]$$$reloadEvents -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="reloadEvents-signal">
+<td class="tblQmlFuncNode"><p>
+<span class="name">reloadEvents</span>()</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Use this signal to request a fresh reload of the event data.</p>
+<div class="admonition note"><p><b>Note: </b>The corresponding handler is <code translate="no">onReloadEvents</code>.</p>
+</div></div></div><!-- @@@reloadEvents -->
+<br/>
+</body>
+</html>

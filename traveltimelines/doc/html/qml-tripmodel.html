@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- TripModel.qml -->
+  <meta name="description" content="Implements the data model functionality for the TravelTimelines app.">
+  <title>TripModel QML Type | traveltimelines</title>
+</head>
+<body>
+<li>TripModel</li>
+<div class="sidebar">
+<div class="toc">
+<h3 id="toc">Contents</h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title" translate="no">TripModel QML Type</h1>
+<!-- $$$TripModel-brief -->
+<p>Implements the data model functionality for the TravelTimelines app. <a href="#details">More...</a></p>
+<!-- @@@TripModel -->
+<ul>
+<li><a href="qml-tripmodel-members.html">List of all members, including inherited members</a></li>
+</ul>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn" translate="no"><b><a href="qml-tripmodel.html#dispatcher-prop" translate="no">dispatcher</a></b> : alias</li>
+<li class="fn" translate="no"><b><a href="qml-tripmodel.html#eventsDispatcher-prop" translate="no">eventsDispatcher</a></b> : alias</li>
+<li class="fn" translate="no"><b><a href="qml-tripmodel.html#selectedTripId-prop" translate="no">selectedTripId</a></b> : int</li>
+<li class="fn" translate="no"><b><a href="qml-tripmodel.html#tripEvents-prop" translate="no">tripEvents</a></b> : var</li>
+<li class="fn" translate="no"><b><a href="qml-tripmodel.html#trips-prop" translate="no">trips</a></b> : alias</li>
+</ul>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn" translate="no">void <b><a href="qml-tripmodel.html#saveEvents-method" translate="no">saveEvents</a></b>()</li>
+<li class="fn" translate="no">void <b><a href="qml-tripmodel.html#saveTrips-method" translate="no">saveTrips</a></b>()</li>
+<li class="fn" translate="no">void <b><a href="qml-tripmodel.html#sortTrips-method" translate="no">sortTrips</a></b>()</li>
+<li class="fn" translate="no">void <b><a href="qml-tripmodel.html#updateSelectedTripEvents-method" translate="no">updateSelectedTripEvents</a></b>(int <i>tripId</i>)</li>
+<li class="fn" translate="no">void <b><a href="qml-tripmodel.html#updateTripAfterEventChange-method" translate="no">updateTripAfterEventChange</a></b>(var <i>event</i>)</li>
+</ul>
+<!-- $$$TripModel-description -->
+<h2 id="details">Detailed Description</h2>
+<p>The TripModel item handles the data used by the TravelTimelines app.</p>
+<ul>
+<li>It updates the data according to the notifications sent by controllers</li>
+<li>It updates the local storage after data has been changed</li>
+<li>provides trip &amp; event data access to the item users</li>
+</ul>
+<!-- @@@TripModel -->
+<h2>Property Documentation</h2>
+<!-- $$$dispatcher -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="dispatcher-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">dispatcher</span> : <span class="type">alias</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The controller responsible for the trips notifications.</p>
+</div></div><!-- @@@dispatcher -->
+<br/>
+<!-- $$$eventsDispatcher -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="eventsDispatcher-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">eventsDispatcher</span> : <span class="type">alias</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The controller responsible for the events notifications.</p>
+</div></div><!-- @@@eventsDispatcher -->
+<br/>
+<!-- $$$selectedTripId -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="selectedTripId-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">selectedTripId</span> : <span class="type">int</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The id of the selected trip</p>
+</div></div><!-- @@@selectedTripId -->
+<br/>
+<!-- $$$tripEvents -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="tripEvents-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">tripEvents</span> : <span class="type">var</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>An array containing the JSON documents for the trip events for the selected trip</p>
+</div></div><!-- @@@tripEvents -->
+<br/>
+<!-- $$$trips -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="trips-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[read-only] </span><span class="name">trips</span> : <span class="type">alias</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>An array containg the JSON documents of created trips</p>
+</div></div><!-- @@@trips -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$saveEvents[overload1]$$$saveEvents -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="saveEvents-method">
+<td class="tblQmlFuncNode"><p>
+<span class="type">void</span> <span class="name">saveEvents</span>()</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Saves the model's trips into loacal storage</p>
+</div></div><!-- @@@saveEvents -->
+<br/>
+<!-- $$$saveTrips[overload1]$$$saveTrips -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="saveTrips-method">
+<td class="tblQmlFuncNode"><p>
+<span class="type">void</span> <span class="name">saveTrips</span>()</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Saves the model's trips into loacal storage</p>
+</div></div><!-- @@@saveTrips -->
+<br/>
+<!-- $$$sortTrips[overload1]$$$sortTrips -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="sortTrips-method">
+<td class="tblQmlFuncNode"><p>
+<span class="type">void</span> <span class="name">sortTrips</span>()</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Sorts the trips in the model ascending based on start time</p>
+</div></div><!-- @@@sortTrips -->
+<br/>
+<!-- $$$updateSelectedTripEvents[overload1]$$$updateSelectedTripEventsint -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="updateSelectedTripEvents-method">
+<td class="tblQmlFuncNode"><p>
+<span class="type">void</span> <span class="name">updateSelectedTripEvents</span>(<span class="type">int</span> <i>tripId</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Updates <a href="qml-tripmodel.html#tripEvents-prop" translate="no">tripEvents</a> property of the <a href="qml-tripmodel.html" translate="no">TripModel</a> with the events of trip with id <i translate="no">tripId</i></p>
+</div></div><!-- @@@updateSelectedTripEvents -->
+<br/>
+<!-- $$$updateTripAfterEventChange[overload1]$$$updateTripAfterEventChangevar -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="updateTripAfterEventChange-method">
+<td class="tblQmlFuncNode"><p>
+<span class="type">void</span> <span class="name">updateTripAfterEventChange</span>(<span class="type">var</span> <i>event</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Updates trip data according to the changes in the <i translate="no">event</i></p>
+</div></div><!-- @@@updateTripAfterEventChange -->
+<br/>
+</body>
+</html>

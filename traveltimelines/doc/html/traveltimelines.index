@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QDOCINDEX>
+<INDEX url="" title="Developer documentation for a Felgo app" version="We don't have one" project="traveltimelines">
+    <namespace name="" status="active" access="public" module="traveltimelines">
+        <qmlclass name="AddTripPage" href="qml-addtrippage.html" status="active" access="public" documented="true" title="AddTripPage" fulltitle="AddTripPage" subtitle="" brief="Application page to edit trip data">
+            <qmlproperty name="dispatcher" fullname="AddTripPage::dispatcher" href="qml-addtrippage.html#dispatcher-prop" status="active" access="public" documented="true" type="TripsController" attached="false" writable="true" required="true"/>
+            <qmlproperty name="trip" fullname="AddTripPage::trip" href="qml-addtrippage.html#trip-prop" status="active" access="public" documented="true" type="var" attached="false" writable="true"/>
+            <qmlproperty name="tripEventsPage" fullname="AddTripPage::tripEventsPage" href="qml-addtrippage.html#tripEventsPage-prop" status="active" access="public" documented="true" type="Component" attached="false" writable="true"/>
+        </qmlclass>
+        <qmlclass name="DateField" href="qml-datefield.html" status="active" access="public" documented="true" title="DateField" fulltitle="DateField" subtitle="" brief="A row showing a date">
+            <qmlproperty name="allowEditing" fullname="DateField::allowEditing" href="qml-datefield.html#allowEditing-prop" status="active" access="public" documented="true" type="bool" attached="false" writable="true"/>
+            <qmlproperty name="isEditing" fullname="DateField::isEditing" href="qml-datefield.html#isEditing-prop" status="active" access="public" documented="true" type="bool" attached="false" writable="true"/>
+            <qmlproperty name="pickerDialog" fullname="DateField::pickerDialog" href="qml-datefield.html#pickerDialog-prop" status="active" access="public" documented="true" type="DatePickerDialog" attached="false" writable="true"/>
+            <qmlproperty name="selectedDate" fullname="DateField::selectedDate" href="qml-datefield.html#selectedDate-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true"/>
+        </qmlclass>
+        <qmlclass name="DatePickerDialog" href="qml-datepickerdialog.html" status="active" access="public" documented="true" title="DatePickerDialog" fulltitle="DatePickerDialog" subtitle="" brief="Helper dialog for easy date picking">
+            <function name="setDate" fullname="DatePickerDialog::setDate" href="qml-datepickerdialog.html#setDate-method" status="active" access="public" location="DatePickerDialog.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/dialogs/DatePickerDialog.qml" lineno="63" documented="true" meta="qmlmethod" type="void">
+                <parameter type="date" name="selectedDate" default=""/>
+            </function>
+            <qmlproperty name="endDate" fullname="DatePickerDialog::endDate" href="qml-datepickerdialog.html#endDate-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true"/>
+            <qmlproperty name="selectedDate" fullname="DatePickerDialog::selectedDate" href="qml-datepickerdialog.html#selectedDate-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true"/>
+            <qmlproperty name="startDate" fullname="DatePickerDialog::startDate" href="qml-datepickerdialog.html#startDate-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true"/>
+        </qmlclass>
+        <qmlclass name="EditEventPage" href="qml-editeventpage.html" status="active" access="public" documented="true" title="EditEventPage" fulltitle="EditEventPage" subtitle="" brief="Application page to edit trip event data">
+            <qmlproperty name="dispatcher" fullname="EditEventPage::dispatcher" href="qml-editeventpage.html#dispatcher-prop" status="active" access="public" documented="true" type="EventsController" attached="false" writable="true" required="true"/>
+            <qmlproperty name="tripEvent" fullname="EditEventPage::tripEvent" href="qml-editeventpage.html#tripEvent-prop" status="active" access="public" documented="true" type="var" attached="false" writable="true"/>
+            <qmlproperty name="tripId" fullname="EditEventPage::tripId" href="qml-editeventpage.html#tripId-prop" status="active" access="public" documented="true" type="int" attached="false" writable="true"/>
+        </qmlclass>
+        <qmlclass name="EventOverview" href="qml-eventoverview.html" status="active" access="public" documented="true" title="EventOverview" fulltitle="EventOverview" subtitle="" brief="QML component dispalying event information">
+            <qmlproperty name="comments" fullname="EventOverview::comments" href="qml-eventoverview.html#comments-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true" required="true"/>
+            <qmlproperty name="cost" fullname="EventOverview::cost" href="qml-eventoverview.html#cost-prop" status="active" access="public" documented="true" type="int" attached="false" writable="true" required="true"/>
+            <qmlproperty name="costStatus" fullname="EventOverview::costStatus" href="qml-eventoverview.html#costStatus-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true" required="true"/>
+            <qmlproperty name="currency" fullname="EventOverview::currency" href="qml-eventoverview.html#currency-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true"/>
+            <qmlproperty name="endDate" fullname="EventOverview::endDate" href="qml-eventoverview.html#endDate-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true" required="true"/>
+            <qmlproperty name="endLocation" fullname="EventOverview::endLocation" href="qml-eventoverview.html#endLocation-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true" required="true"/>
+            <qmlproperty name="eventId" fullname="EventOverview::eventId" href="qml-eventoverview.html#eventId-prop" status="active" access="public" documented="true" type="int" attached="false" writable="true" required="true"/>
+            <qmlproperty name="operator" fullname="EventOverview::operator" href="qml-eventoverview.html#operator-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true" required="true"/>
+            <qmlproperty name="startDate" fullname="EventOverview::startDate" href="qml-eventoverview.html#startDate-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true" required="true"/>
+            <qmlproperty name="startLocation" fullname="EventOverview::startLocation" href="qml-eventoverview.html#startLocation-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true" required="true"/>
+            <qmlproperty name="status" fullname="EventOverview::status" href="qml-eventoverview.html#status-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true" required="true"/>
+            <qmlproperty name="type" fullname="EventOverview::type" href="qml-eventoverview.html#type-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true" required="true"/>
+        </qmlclass>
+        <qmlclass name="EventStatusPicker" href="qml-eventstatuspicker.html" status="active" access="public" documented="true" title="EventStatusPicker" fulltitle="EventStatusPicker" subtitle="" brief="Helper dialog for easy trip event status selection">
+            <function name="setSelection" fullname="EventStatusPicker::setSelection" href="qml-eventstatuspicker.html#setSelection-method" status="active" access="public" location="EventStatusPicker.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/dialogs/EventStatusPicker.qml" lineno="26" documented="true" meta="qmlmethod" type="void">
+                <parameter type="string" name="option" default=""/>
+            </function>
+            <qmlproperty name="selectedOption" fullname="EventStatusPicker::selectedOption" href="qml-eventstatuspicker.html#selectedOption-prop" status="active" access="public" documented="true" type="string" attached="false" writable="false"/>
+        </qmlclass>
+        <qmlclass name="EventTypePicker" href="qml-eventtypepicker.html" status="active" access="public" documented="true" title="EventTypePicker" fulltitle="EventTypePicker" subtitle="" brief="Helper dialog for easy trip event type selection">
+            <function name="setSelection" fullname="EventTypePicker::setSelection" href="qml-eventtypepicker.html#setSelection-method" status="active" access="public" location="EventTypePicker.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/dialogs/EventTypePicker.qml" lineno="26" documented="true" meta="qmlmethod" type="void">
+                <parameter type="string" name="option" default=""/>
+            </function>
+            <qmlproperty name="selectedOption" fullname="EventTypePicker::selectedOption" href="qml-eventtypepicker.html#selectedOption-prop" status="active" access="public" documented="true" type="string" attached="false" writable="false"/>
+        </qmlclass>
+        <qmlclass name="EventsController" href="qml-eventscontroller.html" status="active" access="public" documented="true" title="EventsController" fulltitle="EventsController" subtitle="" brief="Defines the actions that can be performed on trip events">
+            <function name="createEvent" fullname="EventsController::createEvent" href="qml-eventscontroller.html#createEvent-signal" status="active" access="public" location="EventsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/EventsController.qml" lineno="14" documented="true" meta="qmlsignal">
+                <parameter type="var" name="newEvent" default=""/>
+            </function>
+            <function name="deleteEvent" fullname="EventsController::deleteEvent" href="qml-eventscontroller.html#deleteEvent-signal" status="active" access="public" location="EventsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/EventsController.qml" lineno="21" documented="true" meta="qmlsignal">
+                <parameter type="int" name="eventId" default=""/>
+            </function>
+            <function name="editEvent" fullname="EventsController::editEvent" href="qml-eventscontroller.html#editEvent-signal" status="active" access="public" location="EventsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/EventsController.qml" lineno="28" documented="true" meta="qmlsignal">
+                <parameter type="var" name="existingEvent" default=""/>
+            </function>
+            <function name="reloadEvents" fullname="EventsController::reloadEvents" href="qml-eventscontroller.html#reloadEvents-signal" status="active" access="public" location="EventsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/EventsController.qml" lineno="36" documented="true" meta="qmlsignal"/>
+        </qmlclass>
+        <qmlclass name="EventsOverviewPage" href="qml-eventsoverviewpage.html" status="active" access="public" documented="true" title="EventsOverviewPage" fulltitle="EventsOverviewPage" subtitle="" brief="Page displaying the events of a selected trip">
+            <qmlproperty name="dispatcher" fullname="EventsOverviewPage::dispatcher" href="qml-eventsoverviewpage.html#dispatcher-prop" status="active" access="public" documented="true" type="EventsController" attached="false" writable="true" required="true"/>
+            <qmlproperty name="editEventPage" fullname="EventsOverviewPage::editEventPage" href="qml-eventsoverviewpage.html#editEventPage-prop" status="active" access="public" documented="true" type="Component" attached="false" writable="true" required="true"/>
+            <qmlproperty name="selectedTripId" fullname="EventsOverviewPage::selectedTripId" href="qml-eventsoverviewpage.html#selectedTripId-prop" status="active" access="public" documented="true" type="int" attached="false" writable="true"/>
+            <qmlproperty name="selectedTripName" fullname="EventsOverviewPage::selectedTripName" href="qml-eventsoverviewpage.html#selectedTripName-prop" status="active" access="public" documented="true" type="string" attached="false" writable="true"/>
+            <qmlproperty name="tripEvents" fullname="EventsOverviewPage::tripEvents" href="qml-eventsoverviewpage.html#tripEvents-prop" status="active" access="public" documented="true" type="var" attached="false" writable="true"/>
+        </qmlclass>
+        <qmlclass name="PaidStatusPIcker" href="qml-paidstatuspicker.html" status="active" access="public" documented="true" title="PaidStatusPIcker" fulltitle="PaidStatusPIcker" subtitle="" brief="Helper dialog for easy trip event paiment status selection">
+            <function name="setSelection" fullname="PaidStatusPIcker::setSelection" href="qml-paidstatuspicker.html#setSelection-method" status="active" access="public" location="PaidStatusPIcker.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/dialogs/PaidStatusPIcker.qml" lineno="27" documented="true" meta="qmlmethod" type="void">
+                <parameter type="string" name="option" default=""/>
+            </function>
+            <qmlproperty name="selectedOption" fullname="PaidStatusPIcker::selectedOption" href="qml-paidstatuspicker.html#selectedOption-prop" status="active" access="public" documented="true" type="string" attached="false" writable="false"/>
+        </qmlclass>
+        <page name="traveltimelines.html" href="traveltimelines.html" status="active" location="traveltimelines.qdoc" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/doc/traveltimelines.qdoc" lineno="1" documented="true" subtype="page" title="Travel Timelines App" fulltitle="Travel Timelines App" subtitle="">
+            <contents name="why-another-trip-planning-app" title="Why another trip planning app?" level="1"/>
+            <contents name="how-to-use-the-app" title="How to use the app" level="2"/>
+            <contents name="technologies-used" title="Technologies used" level="1"/>
+            <contents name="app-architecture" title="App architecture" level="1"/>
+            <contents name="how-to-do-it" title="How To Do it" level="1"/>
+            <contents name="project-setup" title="Project setup" level="2"/>
+            <contents name="creating-the-logic" title="Creating the logic" level="2"/>
+            <contents name="creating-the-model" title="Creating the model" level="2"/>
+            <contents name="storage" title="Storage" level="2"/>
+            <contents name="pages" title="Pages" level="2"/>
+            <contents name="overview-pages" title="Overview pages" level="3"/>
+            <contents name="editing-pages" title="Editing pages" level="3"/>
+            <contents name="datefield" title="DateField" level="3"/>
+            <contents name="tripoverview-and-eventoverview" title="TripOverview and EventOverview" level="3"/>
+            <contents name="dialogs" title="Dialogs" level="2"/>
+            <contents name="what-s-next" title="What's next?" level="1"/>
+        </page>
+        <qmlclass name="TripModel" href="qml-tripmodel.html" status="active" access="public" documented="true" title="TripModel" fulltitle="TripModel" subtitle="" brief="Implements the data model functionality for the TravelTimelines app">
+            <function name="saveEvents" fullname="TripModel::saveEvents" href="qml-tripmodel.html#saveEvents-method" status="active" access="public" location="TripModel.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/model/TripModel.qml" lineno="116" documented="true" meta="qmlmethod" type="void"/>
+            <function name="saveTrips" fullname="TripModel::saveTrips" href="qml-tripmodel.html#saveTrips-method" status="active" access="public" location="TripModel.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/model/TripModel.qml" lineno="107" documented="true" meta="qmlmethod" type="void"/>
+            <function name="sortTrips" fullname="TripModel::sortTrips" href="qml-tripmodel.html#sortTrips-method" status="active" access="public" location="TripModel.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/model/TripModel.qml" lineno="82" documented="true" meta="qmlmethod" type="void"/>
+            <function name="updateSelectedTripEvents" fullname="TripModel::updateSelectedTripEvents" href="qml-tripmodel.html#updateSelectedTripEvents-method" status="active" access="public" location="TripModel.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/model/TripModel.qml" lineno="51" documented="true" meta="qmlmethod" type="void">
+                <parameter type="int" name="tripId" default=""/>
+            </function>
+            <function name="updateTripAfterEventChange" fullname="TripModel::updateTripAfterEventChange" href="qml-tripmodel.html#updateTripAfterEventChange-method" status="active" access="public" location="TripModel.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/model/TripModel.qml" lineno="127" documented="true" meta="qmlmethod" type="void">
+                <parameter type="var" name="event" default=""/>
+            </function>
+            <qmlproperty name="dispatcher" fullname="TripModel::dispatcher" href="qml-tripmodel.html#dispatcher-prop" status="active" access="public" documented="true" type="alias" attached="false" writable="true"/>
+            <qmlproperty name="eventsDispatcher" fullname="TripModel::eventsDispatcher" href="qml-tripmodel.html#eventsDispatcher-prop" status="active" access="public" documented="true" type="alias" attached="false" writable="true"/>
+            <qmlproperty name="selectedTripId" fullname="TripModel::selectedTripId" href="qml-tripmodel.html#selectedTripId-prop" status="active" access="public" documented="true" type="int" attached="false" writable="true"/>
+            <qmlproperty name="tripEvents" fullname="TripModel::tripEvents" href="qml-tripmodel.html#tripEvents-prop" status="active" access="public" documented="true" type="var" attached="false" writable="true"/>
+            <qmlproperty name="trips" fullname="TripModel::trips" href="qml-tripmodel.html#trips-prop" status="active" access="public" documented="true" type="alias" attached="false" writable="false"/>
+        </qmlclass>
+        <qmlclass name="TripOverview" href="qml-tripoverview.html" status="active" access="public" documented="true" title="TripOverview" fulltitle="TripOverview" subtitle="" brief="QML component dispalying trip information">
+            <qmlproperty name="end" fullname="TripOverview::end" href="qml-tripoverview.html#end-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true" required="true"/>
+            <qmlproperty name="eventId" fullname="TripOverview::eventId" href="qml-tripoverview.html#eventId-prop" status="active" access="public" location="TripOverview.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/pages/TripOverview.qml" lineno="16" documented="true" type="int" attached="false" writable="true"/>
+            <qmlproperty name="start" fullname="TripOverview::start" href="qml-tripoverview.html#start-prop" status="active" access="public" documented="true" type="date" attached="false" writable="true" required="true"/>
+            <qmlproperty name="title" fullname="TripOverview::title" href="qml-tripoverview.html#title-prop" status="active" access="public" documented="true" type="var" attached="false" writable="true" required="true"/>
+            <qmlproperty name="tripId" fullname="TripOverview::tripId" href="qml-tripoverview.html#tripId-prop" status="active" access="public" documented="true" type="int" attached="false" writable="true" required="true"/>
+        </qmlclass>
+        <qmlclass name="TripsController" href="qml-tripscontroller.html" status="active" access="public" documented="true" title="TripsController" fulltitle="TripsController" subtitle="" brief="Defines the actions that can be performed on trips">
+            <function name="createTrip" fullname="TripsController::createTrip" href="qml-tripscontroller.html#createTrip-signal" status="active" access="public" location="TripsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/TripsController.qml" lineno="13" documented="true" meta="qmlsignal">
+                <parameter type="var" name="newTrip" default=""/>
+            </function>
+            <function name="deleteTrip" fullname="TripsController::deleteTrip" href="qml-tripscontroller.html#deleteTrip-signal" status="active" access="public" location="TripsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/TripsController.qml" lineno="20" documented="true" meta="qmlsignal">
+                <parameter type="int" name="tripId" default=""/>
+            </function>
+            <function name="editTrip" fullname="TripsController::editTrip" href="qml-tripscontroller.html#editTrip-signal" status="active" access="public" location="TripsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/TripsController.qml" lineno="27" documented="true" meta="qmlsignal">
+                <parameter type="var" name="existingTrip" default=""/>
+            </function>
+            <function name="fetchTripData" fullname="TripsController::fetchTripData" href="qml-tripscontroller.html#fetchTripData-signal" status="active" access="public" location="TripsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/TripsController.qml" lineno="34" documented="true" meta="qmlsignal">
+                <parameter type="int" name="tripId" default=""/>
+            </function>
+            <function name="reloadTrips" fullname="TripsController::reloadTrips" href="qml-tripscontroller.html#reloadTrips-signal" status="active" access="public" location="TripsController.qml" filepath="C:/_workspace/_personal/traveltimelines/traveltimelines/qml/logic/TripsController.qml" lineno="39" documented="true" meta="qmlsignal"/>
+        </qmlclass>
+        <qmlclass name="TripsOverviewPage" href="qml-tripsoverviewpage.html" status="active" access="public" documented="true" title="TripsOverviewPage" fulltitle="TripsOverviewPage" subtitle="" brief="Page displaying the user defined trips">
+            <qmlproperty name="dispatcher" fullname="TripsOverviewPage::dispatcher" href="qml-tripsoverviewpage.html#dispatcher-prop" status="active" access="public" documented="true" type="TripsController" attached="false" writable="true" required="true"/>
+            <qmlproperty name="myTrips" fullname="TripsOverviewPage::myTrips" href="qml-tripsoverviewpage.html#myTrips-prop" status="active" access="public" documented="true" type="var" attached="false" writable="true" required="true"/>
+            <qmlproperty name="tripDetailsPage" fullname="TripsOverviewPage::tripDetailsPage" href="qml-tripsoverviewpage.html#tripDetailsPage-prop" status="active" access="public" documented="true" type="Component" attached="false" writable="true" required="true"/>
+        </qmlclass>
+    </namespace>
+</INDEX>

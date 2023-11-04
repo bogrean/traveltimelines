@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- EventOverview.qml -->
+  <meta name="description" content="QML component dispalying event information.">
+  <title>EventOverview QML Type | traveltimelines</title>
+</head>
+<body>
+<li>EventOverview</li>
+<div class="sidebar">
+<div class="toc">
+<h3 id="toc">Contents</h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title" translate="no">EventOverview QML Type</h1>
+<!-- $$$EventOverview-brief -->
+<p>QML component dispalying event information. <a href="#details">More...</a></p>
+<!-- @@@EventOverview -->
+<ul>
+<li><a href="qml-eventoverview-members.html">List of all members, including inherited members</a></li>
+</ul>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#comments-prop" translate="no">comments</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#cost-prop" translate="no">cost</a></b> : int</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#costStatus-prop" translate="no">costStatus</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#currency-prop" translate="no">currency</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#endDate-prop" translate="no">endDate</a></b> : date</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#endLocation-prop" translate="no">endLocation</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#eventId-prop" translate="no">eventId</a></b> : int</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#operator-prop" translate="no">operator</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#startDate-prop" translate="no">startDate</a></b> : date</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#startLocation-prop" translate="no">startLocation</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#status-prop" translate="no">status</a></b> : string</li>
+<li class="fn" translate="no"><b><a href="qml-eventoverview.html#type-prop" translate="no">type</a></b> : string</li>
+</ul>
+<!-- $$$EventOverview-description -->
+<h2 id="details">Detailed Description</h2>
+<p>Component displaying the trip event data in a non editable way. Added buttons allow the user to open a new page to edit the data or delete the event.</p>
+<p>Is intended to be used as a delegate.</p>
+<!-- @@@EventOverview -->
+<h2>Property Documentation</h2>
+<!-- $$$comments -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="comments-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">comments</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>User added comments for this event</p>
+</div></div><!-- @@@comments -->
+<br/>
+<!-- $$$cost -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="cost-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">cost</span> : <span class="type">int</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The cost of the event, in <a href="qml-eventoverview.html#currency-prop" translate="no">currency</a></p>
+</div></div><!-- @@@cost -->
+<br/>
+<!-- $$$costStatus -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="costStatus-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">costStatus</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Indicates whether this event has been paid or not</p>
+</div></div><!-- @@@costStatus -->
+<br/>
+<!-- $$$currency -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="currency-prop">
+<td class="tblQmlPropNode"><p>
+<span class="name">currency</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The currency in which the cost is set</p>
+</div></div><!-- @@@currency -->
+<br/>
+<!-- $$$endDate -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="endDate-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">endDate</span> : <span class="type">date</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The end date of the event. Both date and time data are used</p>
+</div></div><!-- @@@endDate -->
+<br/>
+<!-- $$$endLocation -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="endLocation-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">endLocation</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The location where the event ends</p>
+</div></div><!-- @@@endLocation -->
+<br/>
+<!-- $$$eventId -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="eventId-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">eventId</span> : <span class="type">int</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The id of the event being displayed.</p>
+</div></div><!-- @@@eventId -->
+<br/>
+<!-- $$$operator -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="operator-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">operator</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The operator of the event</p>
+</div></div><!-- @@@operator -->
+<br/>
+<!-- $$$startDate -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="startDate-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">startDate</span> : <span class="type">date</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The start date of the event. Both date and time data are used</p>
+</div></div><!-- @@@startDate -->
+<br/>
+<!-- $$$startLocation -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="startLocation-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">startLocation</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The location where the event starts</p>
+</div></div><!-- @@@startLocation -->
+<br/>
+<!-- $$$status -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="status-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">status</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The status of this event. This controls the background color of this component</p>
+</div></div><!-- @@@status -->
+<br/>
+<!-- $$$type -->
+<div class="qmlitem"><div class="qmlproto" translate="no">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="type-prop">
+<td class="tblQmlPropNode"><p>
+<span class="qmlextra">[required] </span><span class="name">type</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>The type of the event being displayed. The appearance of <a href="qml-eventoverview.html" translate="no">EventOverview</a> is changed according to this value</p>
+</div></div><!-- @@@type -->
+<br/>
+</body>
+</html>

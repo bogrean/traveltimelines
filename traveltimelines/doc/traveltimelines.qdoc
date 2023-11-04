@@ -4,7 +4,6 @@
 
 \section1 Why another trip planning app?
 
-
 It can be quite complicated to plan your holidays if you go off the beaten path. \
 If you found yourself in a situation that you need to take 3 Inter-city busses, \
 1 plane, 1 ferry, a night train and find 2 nights of accommodation just to reach \
@@ -14,7 +13,42 @@ reservations and tickets.
 This app will help you organise your trip showing all travel events in a timeline, \
 displaying details about the events and actions that need to be taken.
 
+\section2 How to use the app
+
 \section1 Technologies used
+\list
+\li \l {https://www.qt.io/product/framework} {Qt}
+\li Several elements from \l {https://felgo.com/apps} {Felgo SDK}
+    \list
+    \li Essentials
+        \list
+        \li \l {https://felgo.com/doc/felgo-app/} {App}
+        \li \l {https://felgo.com/doc/felgo-appflickable/} {AppFlickable}
+        \li \l {https://felgo.com/doc/felgo-apppage/} {AppPage}
+        \endlist
+    \li Controls
+        \list
+        \li \l {https://felgo.com/doc/felgo-appbutton/} {AppButton}
+        \li \l {https://felgo.com/doc/felgo-applistview/} {AppListView}
+        \li \l {https://felgo.com/doc/felgo-appradio/} {AppRadio}
+        \li \l {https://felgo.com/doc/felgo-apptext/} {AppText}
+        \li \l {https://felgo.com/doc/felgo-datepicker/} {DatePicker}
+        \li \l {https://felgo.com/doc/felgo-dialog/} {Dialog}
+        \li \l {https://felgo.com/doc/felgo-iconbutton/} {Iconbutton}
+        \li \l {https://felgo.com/doc/felgo-textfieldrow/} {TextFieldRow}
+        \endlist
+    \li Navigation
+        \list
+        \li \l {https://felgo.com/doc/felgo-iconbuttonbaritem/} {IconButtonBarItem}
+        \li \l {https://felgo.com/doc/felgo-navigationbarrow/} {NavigationBarRow}
+        \li \l {https://felgo.com/doc/felgo-navigationstack/} {NavigationStack}
+        \endlist
+    \endlist
+    \li Utility
+        \list
+        \li \l {https://felgo.com/doc/felgo-storage/} {Storage}
+        \endlist
+\endlist
 
 \section1 App architecture
 

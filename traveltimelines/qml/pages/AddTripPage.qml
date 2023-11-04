@@ -5,13 +5,40 @@ import Felgo
 import "../logic"
 import "../dialogs"
 
+/*!
+  \qmltype AddTripPage
+  \brief Application page to edit trip data.
+
+  A basic application that allows the user to edit trip data:
+  \list
+  \li Trip title
+  \li Trip start date
+  \li Trip end date
+  \li Trip events
+  \endlist
+*/
+
 AppPage {
     id: thisPage
-    required property TripsController dispatcher
-    property Component tripEventsPage
-    property var trip: null
+    /*!
+      \qmlproperty TripsController dispatcher
 
-    signal showEventsRequested()
+      The dispatcher used to send notifications regarding trips
+    */
+    required property TripsController dispatcher
+
+    /*!
+      \qmlproperty Component tripEventsPage
+
+      The component that will displayed for editing trip events data
+    */
+    property Component tripEventsPage
+    /*!
+      \qmlproperty var trip
+
+      An object containing the trip data
+    */
+    property var trip: null
 
     states: [
         State {
@@ -82,11 +109,11 @@ AppPage {
         Column {
             id: pageContent
             width: thisPage.width
-            spacing: 10
+            spacing: dp(10)
             AppTextField {
                 id: tripTitle
                 width: parent.width
-                padding: 10
+                padding: dp(10)
                 placeholderText: qsTr("Enter your trip name")
 
             }
@@ -106,7 +133,7 @@ AppPage {
             }
 
             RowLayout{
-                spacing: 10
+                spacing: dp(10)
                 width: thisPage.width
 
                 AppButton {

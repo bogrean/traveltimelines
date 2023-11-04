@@ -3,11 +3,37 @@ import Felgo
 
 import "../logic"
 
+/*!
+  \qmltype TripsOverviewPage
+  \brief Page displaying the user defined trips.
+
+  This is an application page that displays & edits the trips.
+
+  Trips are displayed using an \l TripOverview
+
+  New trips can be added
+*/
+
 AppPage {
     id: thisPage
 
+    /*!
+      \qmlproperty var TripsOverviewPage::myTrips
+
+      An array containing the trip objects
+    */
     required property var myTrips
+    /*!
+      \qmlproperty TripsController TripsOverviewPage::dispatcher
+
+      The \l TripsController instance that's used to send notifications about trips
+    */
     required property TripsController dispatcher
+    /*!
+      \qmlproperty Component TripsOverviewPage::tripDetailsPage
+
+      Component that will be used to edit the data of a trip
+    */
     required property Component tripDetailsPage
 
     title: qsTr("My Trips")

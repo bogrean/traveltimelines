@@ -6,10 +6,44 @@ import QtQuick.Controls
 import "../logic"
 import "../dialogs"
 
+/*!
+  \qmltype EditEventPage
+  \brief Application page to edit trip event data.
+
+  A basic application page that allows the user to edit event data:
+  \list
+  \li Event type
+  \li Event start date & time
+  \li Event start location
+  \li Event end date & time
+  \li Event end location
+  \li Event status
+  \li Event cost
+  \li Whether the event was paid or not
+  \li operator of the event
+  \li User comments
+  \endlist
+*/
+
 AppPage {
     id: thisPage
+    /*!
+      \qmlproperty EventsController EditEventPage::dispatcher
+
+      The dispatcher used to send notifications regarding events
+    */
     required property EventsController dispatcher
+    /*!
+      \qmlproperty var EditEventPage::tripEvent
+
+      An object containing the event data
+    */
     property var tripEvent: null
+    /*!
+      \qmlproperty int EditEventPage::tripId
+
+      The id of the trip the tripEvent belongs to
+    */
     property int tripId: -1
 
     states: [

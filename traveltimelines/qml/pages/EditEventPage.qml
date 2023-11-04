@@ -56,7 +56,7 @@ AppPage {
             PropertyChanges {
                 target: saveBtn
                 text: qsTr("Create")
-
+                enabled: true
             }
         },
         State {
@@ -68,7 +68,16 @@ AppPage {
             PropertyChanges {
                 target: saveBtn
                 text: qsTr("Save")
-
+                enabled: tripEvent && (tripEvent.Type !== eventType.value ||
+                                       tripEvent.startDate.getTime() !== startDate.selectedDate.getTime() ||
+                                       tripEvent.startLocation !== startLocation.value ||
+                                       tripEvent.endDate.getTime() !== endDate.selectedDate.getTime() ||
+                                       tripEvent.endLocation !== endLocation.value ||
+                                       tripEvent.status !== eventStatus.value ||
+                                       tripEvent.cost !== cost.value ||
+                                       tripEvent.costStatus !== costStatus.value ||
+                                       tripEvent.operator !== operator.value ||
+                                       tripEvent.comments !== comments.value)
             }
         }
     ]

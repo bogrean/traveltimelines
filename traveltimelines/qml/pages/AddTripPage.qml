@@ -75,7 +75,9 @@ AppPage {
             PropertyChanges {
                 target: saveTripBtn
                 text: qsTr("Save trip")
-                enabled: trip && (trip.title !== tripTitle.text || trip.start !== startDate.selectedDate || trip.end !== endDate.selectedDate)
+                enabled: trip && (trip.title !== tripTitle.text ||
+                                  trip.start.getTime() !== startDate.selectedDate.getTime() ||
+                                  trip.end.getTime() !== endDate.selectedDate.getTime())
             }
             PropertyChanges {
                 target: addEventsBtn

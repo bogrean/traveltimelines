@@ -102,14 +102,16 @@ AppPage {
                 label: qsTr("Start on: ")
                 selectedDate: tripEvent ? tripEvent.startDate : new Date()
                 pickerDialog: datePickerDialog
+                state: "showDate"
             }
-            TimeField {
+            DateField {
                 id: startTime
                 width: thisPage.width
                 allowEditing: true
                 label: qsTr("Start at: ")
                 selectedDate: tripEvent ? tripEvent.startDate : new Date()
                 pickerDialog: timePickerDialog
+                state: "showTime"
             }
             TextFieldRow {
                 id: startLocation
@@ -125,15 +127,17 @@ AppPage {
                 label: qsTr("End on: ")
                 selectedDate: tripEvent ? tripEvent.endDate : new Date()
                 pickerDialog: datePickerDialog
+                state: "showDate"
             }
 
-            TimeField {
+            DateField {
                 id: endTime
                 width: thisPage.width
                 allowEditing: true
                 label: qsTr("End at: ")
                 selectedDate: tripEvent ? tripEvent.endDate : new Date()
                 pickerDialog: timePickerDialog
+                state: "showTime"
             }
             TextFieldRow {
                 id: endLocation

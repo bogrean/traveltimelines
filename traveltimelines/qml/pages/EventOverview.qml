@@ -346,6 +346,7 @@ Rectangle {
             label: qsTr("Departing on: ")
             color: eventCard.backgroundColor
             textFieldItem.backgroundColor: eventCard.backgroundColor
+            state: "showDate"
         }
         TextFieldRow {
             id: departingAt
@@ -369,6 +370,7 @@ Rectangle {
             label: qsTr("Ariving on: ")
             color: eventCard.backgroundColor
             textFieldItem.backgroundColor: eventCard.backgroundColor
+            state: "showDate"
         }
         TextFieldRow {
             id: arrivingAt

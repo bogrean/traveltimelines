@@ -58,12 +58,14 @@ Rectangle {
             label: qsTr("Starts on: ")
             color: overview.backgroundColor
             textFieldItem.backgroundColor: overview.backgroundColor
+            state: "showDate"
         }
         DateField {
             selectedDate: end
             label: qsTr("Ends on: ")
             color: overview.backgroundColor
             textFieldItem.backgroundColor: overview.backgroundColor
+            state: "showDate"
         }
     }
     Row {

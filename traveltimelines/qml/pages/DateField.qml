@@ -8,10 +8,10 @@ import "../dialogs"
   \qmltype DateField
   \brief A row showing a date.
 
-  This is an utility component to be used where we need to show a date.
+  This is an utility component to be used where we need to show a date or time.
 
-  The component displays a label and a text field showing the date. It opens a \
-  \l DatePickerDialog when the user tries to edit the date.
+  The component displays a label and a text field showing the date or time. It
+  opens a \l DatePickerDialog when the user tries to edit the date.
 */
 
 TextFieldRow {
@@ -42,6 +42,25 @@ TextFieldRow {
       Set to true if the pickerDialog was opened by this instance
     */
     property bool isEditing: false
+
+    states: [
+        State {
+            name: "showDate"
+            PropertyChanges {
+                target: dateField
+                value: selectedDate.toDateString()
+            }
+        },
+        State {
+            name: "showTime"
+            PropertyChanges {
+                target: dateField
+                value: selectedDate.toTimeString()
+            }
+        }
+
+    ]
+    state: "showDate"
 
     value: selectedDate.toDateString()
     enabled: dateField.allowEditing

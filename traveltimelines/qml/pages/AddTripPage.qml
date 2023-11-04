@@ -126,6 +126,7 @@ AppPage {
                 allowEditing: true
                 label: qsTr("Start date: ")
                 pickerDialog: datePicker
+                state: "showDate"
             }
             DateField {
                 id: endDate
@@ -133,6 +134,7 @@ AppPage {
                 allowEditing: true
                 label: qsTr("End date: ")
                 pickerDialog: datePicker
+                state: "showDate"
             }
 
             RowLayout{

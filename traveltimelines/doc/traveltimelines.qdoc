@@ -232,16 +232,13 @@ events for this trip and one to save the current trip data and jump back to the 
 
 To reuse QML code, several reusable components were created and instantiated by the pages.
 
-\section3 DateField and TimeField
-
-These two components are very similar in structure and usage, the only difference being the dialog they're using
-to select the date or time, respectively, and what part of the date they're showing. In hindsight these two components
-can bea single component with a few more configuration properties
+\section3 DateField
 
 \quotefile ../qml/pages/DateField.qml
 
 The DateField uses a \l {https://felgo.com/doc/felgo-textfieldrow/} {TextFieldRow} to show a label and the date
 representation. When the user wants to edit the date a dialog is opened which allows them to select the date or time.
+Whether the DateField is used for showing and dates or time is control via component states.
 
 It is important to notice that the dialog is set as a property and multiple fields could be sharing the same
 dialog instance. To avoid updating all fields when using the dialog, special care must be taken to update

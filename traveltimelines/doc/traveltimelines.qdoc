@@ -277,6 +277,37 @@ the instantiating components.
 
 \section2 Dialogs
 
+To help users input details in specific format, sever dialogs were created. They all inherit
+\l {https://felgo.com/doc/felgo-dialog/} {Dialog} and are specialized for specific job.
+
+DatePickerDialog is used to select a date or time.
+
+EventStatusPicker, EventTypePicker and PaidStatusPIcker are used to select an option from a fixed set of available options.
+As they all follow the same structure, we will focus on PaidStatusPIcker
+
+\quotefile ../qml/dialogs/PaidStatusPIcker.qml
+
+As you can see, the contents of the dialog are a list of \l {https://felgo.com/doc/felgo-appradio/} {AppRadios}, one for
+each of the available options. They are assigned to a exclusive ButtonGroup, meaning that only can be selected at a given time,
+the user option. Just add new radios if you need more options.
+
+\quotefromfile ../qml/dialogs/PaidStatusPIcker.qml
+\skipto var _options
+\printline var _options
+
+is a helper variable containing the available \l {https://felgo.com/doc/felgo-appradio/} {AppRadios}. It makes it easier
+to handle this list in various positions of the code. Don't forget to add the radios here as well if you extend the list of
+options
+
+\skipto string selectedOption
+\printline string selectedOption
+
+is the readonly property that is set when the user selects one of the options
+
+The following code snippet ensures that we open the dialog with the previous selected option.
+
+\snippet ../qml/dialogs/PaidStatusPicker.qml setting the option
+
 \section1 What's next?
 
 \list

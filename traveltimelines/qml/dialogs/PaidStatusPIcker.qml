@@ -29,10 +29,12 @@ Dialog {
 
       Selects the coresponding radio to \a option. \a option can be either "paid" or "estimated"
     */
+    //! [setting the option]
     function setSelection(option) {
         var selection = _options.find((btn) => btn.value === option)
         optionsRadioGroup.checkedButton = selection ? selection : paidOption
     }
+    //! [setting the option]
 
     Column {
         ButtonGroup {

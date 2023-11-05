@@ -46,6 +46,23 @@ AppPage {
     */
     property int tripId: -1
 
+    function _selectedStartDate() {
+        return new Date(startDate.selectedDate.getFullYear(),
+                        startDate.selectedDate.getMonth(),
+                        startDate.selectedDate.getDate(),
+                        startTime.selectedDate.getHours(),
+                        startTime.selectedDate.getMinutes(),
+                        startTime.selectedDate.getSeconds())
+    }
+    function _selectedEndDate() {
+        return new Date(endDate.selectedDate.getFullYear(),
+                        endDate.selectedDate.getMonth(),
+                        endDate.selectedDate.getDate(),
+                        endTime.selectedDate.getHours(),
+                        endTime.selectedDate.getMinutes(),
+                        endTime.selectedDate.getSeconds())
+    }
+
     states: [
         State {
             name: "addNew"
@@ -68,16 +85,18 @@ AppPage {
             PropertyChanges {
                 target: saveBtn
                 text: qsTr("Save")
-                enabled: tripEvent && (tripEvent.Type !== eventType.value ||
-                                       tripEvent.startDate.getTime() !== startDate.selectedDate.getTime() ||
+                enabled: {
+                    return tripEvent && (tripEvent.type !== eventType.value ||
+                                       new Date(tripEvent.startDate).getTime() !== _selectedStartDate().getTime() ||
                                        tripEvent.startLocation !== startLocation.value ||
-                                       tripEvent.endDate.getTime() !== endDate.selectedDate.getTime() ||
+                                       new Date(tripEvent.endDate).getTime() !== _selectedEndDate().getTime() ||
                                        tripEvent.endLocation !== endLocation.value ||
                                        tripEvent.status !== eventStatus.value ||
-                                       tripEvent.cost !== cost.value ||
+                                       tripEvent.cost !== parseInt(cost.value) ||
                                        tripEvent.costStatus !== costStatus.value ||
                                        tripEvent.operator !== operator.value ||
                                        tripEvent.comments !== comments.value)
+                }
             }
         }
     ]
@@ -205,18 +224,8 @@ AppPage {
                 text: qsTr("Create event")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    var eventStartDate = new Date(startDate.selectedDate.getFullYear(),
-                                                  startDate.selectedDate.getMonth(),
-                                                  startDate.selectedDate.getDate(),
-                                                  startTime.selectedDate.getHours(),
-                                                  startTime.selectedDate.getMinutes(),
-                                                  startTime.selectedDate.getSeconds())
-                    var eventEndDate = new Date(endDate.selectedDate.getFullYear(),
-                                                  endDate.selectedDate.getMonth(),
-                                                  endDate.selectedDate.getDate(),
-                                                  endTime.selectedDate.getHours(),
-                                                  endTime.selectedDate.getMinutes(),
-                                                  endTime.selectedDate.getSeconds())
+                    var eventStartDate = _selectedStartDate()
+                    var eventEndDate = _selectedEndDate()
                     console.log(">>>>>> Saving event")
                     console.log("   Type: ", eventType.value)
                     console.log("   TripId: ",tripId)
